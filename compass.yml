@@ -1,0 +1,17 @@
+name: BeEKind
+id: ari:cloud:compass:06b1f601-7439-4e2a-afac-fed0c1d5a3dc:component/20fdc381-286b-4e23-8a2a-e628d96bb4e4/33039517-0121-41ef-9bae-45609a4938b5
+description: La Nostra Missione Creiamo un ecosistema trasparente e incentivante che permetta ai cittadini di contribuire attivamente al bene comune della propria comunità, utilizzando tecnologie all'avanguardia per garantire trasparenza, efficienza e riconoscimento del valore sociale.
+configVersion: 1
+typeId: SERVICE
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/TA2MA-Dev/BeEKind
+relationships:
+  DEPENDS_ON: []
+labels:
+  - source:github
+  - synced-with-jsm
+customFields: null
