@@ -31,11 +31,6 @@
         .gradient-bg {
             background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
         }
-        .gradient-text {
-            background: linear-gradient(to right, #14b8a6, #0ea5e9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
         .chart-container {
             position: relative;
             width: 100%;
@@ -75,7 +70,7 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#mission" class="hover:text-secondary font-medium transition">Chi Siamo</a>
+                <a href="#chi-siamo" class="hover:text-secondary font-medium transition">Chi Siamo</a>
                 <a href="#challenges" class="hover:text-secondary font-medium transition">Sfide</a>
                 <a href="#missions" class="hover:text-secondary font-medium transition">Missioni</a>
                 <a href="#rewards" class="hover:text-secondary font-medium transition">Ricompense</a>
@@ -92,7 +87,7 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4 space-y-4">
-            <a href="#mission" class="block hover:text-secondary font-medium">Chi Siamo</a>
+            <a href="#chi-siamo" class="block hover:text-secondary font-medium">Chi Siamo</a>
             <a href="#challenges" class="block hover:text-secondary font-medium">Sfide</a>
             <a href="#missions" class="block hover:text-secondary font-medium">Missioni</a>
             <a href="#rewards" class="block hover:text-secondary font-medium">Ricompense</a>
@@ -104,28 +99,29 @@
     <header class="gradient-bg text-white py-32 px-6 text-center">
         <div class="container mx-auto">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">BeEKind</h1>
-            <p class="text-2xl md:text-3xl mb-8 font-light italic">"Volontà Reale - Un'Iniziativa per Mozzate"</p>
+            <p class="text-2xl md:text-3xl mb-8 font-light italic">"Il Futuro del Volontariato"</p>
             <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed opacity-90">
                 Unisciti all'iniziativa rivoluzionaria di <strong>TATUMA®</strong> per il Comune di Mozzate.
                 Blockchain, Intelligenza Artificiale e trasparenza per costruire insieme il bene comune.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <button onclick="showComingSoon()" class="bg-accent hover:bg-yellow-500 text-primary font-bold py-4 px-10 rounded-full text-lg shadow-lg transition transform hover:-translate-y-1">Inizia Ora</button>
-                <a href="#mission" class="bg-transparent border-2 border-white hover:bg-white hover:text-primary font-bold py-4 px-10 rounded-full text-lg transition">Scopri di più</a>
+                <a href="#chi-siamo" class="bg-transparent border-2 border-white hover:bg-white hover:text-primary font-bold py-4 px-10 rounded-full text-lg transition">Scopri di più</a>
             </div>
         </div>
     </header>
 
-    <!-- Mission Section -->
-    <section id="mission" class="py-24 px-6 bg-white section-fade-in">
+    <!-- Chi Siamo Section -->
+    <section id="chi-siamo" class="py-24 px-6 bg-white section-fade-in">
         <div class="container mx-auto text-center">
             <span class="text-secondary font-bold tracking-widest uppercase text-sm">Innovazione Sociale</span>
-            <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-12">La Nostra Missione</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-12">Chi Siamo</h2>
             <div class="max-w-4xl mx-auto">
                 <p class="text-xl leading-relaxed mb-8 text-gray-600">
                     TATUMA® è l'innovativa piattaforma che rivoluziona il volontariato attraverso blockchain e intelligenza artificiale.
                 </p>
-                <div class="bg-blue-50 p-10 rounded-3xl border-l-8 border-secondary italic shadow-inner">
+                <div class="bg-blue-50 p-10 rounded-3xl border-l-8 border-secondary italic shadow-inner mb-12">
+                    <h3 class="text-2xl font-bold text-primary mb-4 not-italic">La Nostra Missione</h3>
                     <p class="text-2xl text-primary leading-snug">
                         "Creiamo un ecosistema trasparente e incentivante che permette ai cittadini di contribuire attivamente al bene comune della propria comunità, utilizzando tecnologie all'avanguardia per garantire trasparenza, efficienza e riconoscimento del valore sociale."
                     </p>
@@ -165,6 +161,59 @@
             </div>
         </div>
     </section>
+    <!-- Tecnologie Section -->
+    <section id="tecnologie" class="py-24 bg-white section-fade-in">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">I Sei Pilastri di Volontà Reale</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Sei pilastri tecnologici che rendono Volontà Reale unica nel panorama del volontariato digitale.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-link text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Trasparenza Blockchain</h3>
+                    <p class="text-gray-600 text-sm">Ogni azione è registrata in modo immutabile, garantendo trasparenza totale e verificabilità.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">AI-Powered Matching</h3>
+                    <p class="text-gray-600 text-sm">L'intelligenza artificiale abbina volontari e missioni in base a competenze e preferenze.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Sicurezza Avanzata</h3>
+                    <p class="text-gray-600 text-sm">Protocolli di sicurezza all'avanguardia proteggono dati personali e transazioni.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Efficienza Ottimizzata</h3>
+                    <p class="text-gray-600 text-sm">Processi automatizzati riduzione burocrazia e tempi di gestione delle attività.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-globe text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Impatto Globale</h3>
+                    <p class="text-gray-600 text-sm">Modello scalabile e replicabile per comunità di tutto il mondo.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-blue-50 border border-blue-100 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-gamepad text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Gamification</h3>
+                    <p class="text-gray-600 text-sm">Sistema di punti, livelli e ricompense per motivare la partecipazione.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Interactive Missions Section -->
     <section id="missions" class="py-24 px-6 bg-white section-fade-in">
@@ -179,10 +228,10 @@
                     <!-- Filters -->
                     <div class="flex flex-wrap gap-3 justify-center mb-10">
                         <button class="mission-filter-btn active bg-secondary text-white py-2 px-6 rounded-full font-semibold transition" data-filter="all">Tutte</button>
+                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Supporto Sociale">Supporto Sociale</button>
                         <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Ambiente">Ambiente</button>
-                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Abbellimento">Abbellimento</button>
-                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Sociale">Sociale</button>
                         <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Cultura">Cultura</button>
+                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Emergenze">Emergenze</button>
                     </div>
 
                     <div id="mission-grid" class="grid sm:grid-cols-2 gap-6">
@@ -198,6 +247,58 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- Ricompense Section -->
+    <section id="ricompense" class="py-24 bg-gray-100 section-fade-in">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Sistema Ricompense NFT</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Guadagna ricompense verificabili e scambiabili per il tuo contributo alla comunità.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-3xl shadow-lg border-t-4 border-orange-400 text-center">
+                    <div class="text-orange-400 font-bold mb-2">BRONZO</div>
+                    <div class="text-sm text-gray-400 mb-4">0-500 punti</div>
+                    <h4 class="font-bold mb-2">NFT Volontario Principiante</h4>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-6">
+                        <li>Badge di riconoscimento</li>
+                        <li>Accesso missioni base</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-lg border-t-4 border-gray-300 text-center">
+                    <div class="text-gray-400 font-bold mb-2">ARGENTO</div>
+                    <div class="text-sm text-gray-400 mb-4">501-1500 punti</div>
+                    <h4 class="font-bold mb-2">NFT Volontario Esperto</h4>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-6">
+                        <li>Missioni esclusive</li>
+                        <li>Sconti partner locali</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-lg border-t-4 border-yellow-400 text-center scale-105 z-10 shadow-xl">
+                    <div class="text-yellow-500 font-bold mb-2">ORO</div>
+                    <div class="text-sm text-gray-400 mb-4">1501-3000 punti</div>
+                    <h4 class="font-bold mb-2">NFT Volontario Veterano</h4>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-6">
+                        <li>Eventi speciali</li>
+                        <li>Riconoscimenti pubblici</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-lg border-t-4 border-blue-400 text-center">
+                    <div class="text-blue-500 font-bold mb-2">PLATINO</div>
+                    <div class="text-sm text-gray-400 mb-4">3000+ punti</div>
+                    <h4 class="font-bold mb-2">NFT Volontario Leggenda</h4>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-6">
+                        <li>Governance piattaforma</li>
+                        <li>Premi esclusivi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-20 p-10 rounded-3xl bg-primary text-white text-center">
+                <h3 class="text-2xl font-bold mb-4">Token Scambiabili</h3>
+                <p class="mb-8 text-blue-100 max-w-2xl mx-auto">Tutti gli NFT sono scambiabili su piattaforme decentralizzate e convertibili in token utilizzabili su: Uniswap, OpenSea, Binance.</p>
             </div>
         </div>
     </section>
@@ -364,21 +465,21 @@
             </div>
             <h3 class="text-2xl font-bold mb-4">Coming Soon!</h3>
             <p class="text-gray-600 mb-8">Stiamo perfezionando l'integrazione blockchain. Il portale BeEKind sarà attivo a breve nel Comune di Mozzate.</p>
-            <button onclick="hideComingSoon()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition text-gray-800">Ho capito</button>
+            <button onclick="hideComingSoon()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition">Ho capito</button>
         </div>
     </div>
 
     <script>
         // Data for missions
         const missionData = [
-            { id: 1, title: "Parco Splendente", category: "Ambiente", points: 75, time: "2-3 ore", description: "Raccogli rifiuti e detriti dal Parco Comunale per mantenerlo pulito e sicuro." },
-            { id: 2, title: "Sentieri Puliti", category: "Ambiente", points: 90, time: "3-4 ore", description: "Mantieni puliti e accessibili i sentieri naturali e le aree verdi periferiche." },
-            { id: 3, title: "Fioritura Urbana", category: "Abbellimento", points: 80, time: "2-4 ore", description: "Pianta fiori e piccole piante in aiuole pubbliche per migliorare l'estetica urbana." },
-            { id: 4, title: "Murales Comunitario", category: "Abbellimento", points: 200, time: "Più sessioni", description: "Realizza opere d'arte su pareti pubbliche per trasformare spazi anonimi." },
-            { id: 5, title: "Spesa Solidale", category: "Sociale", points: 120, time: "2-3 ore", description: "Aiuta nella raccolta e distribuzione di generi alimentari per le famiglie bisognose." },
-            { id: 6, title: "Compagnia Anziani", category: "Sociale", points: 100, time: "2 ore", description: "Offri supporto e compagnia agli anziani soli, aiutandoli con piccole commissioni." },
-            { id: 7, title: "Cineforum all'Aperto", category: "Cultura", points: 150, time: "4-5 ore", description: "Collabora all'organizzazione di proiezioni cinematografiche in spazi pubblici." },
-            { id: 8, title: "Storie di Mozzate", category: "Cultura", points: 130, time: "3-4 ore", description: "Raccogli e trascrivi testimonianze orali degli anziani per preservare la memoria storica." }
+            { id: 1, title: "Pulizia Parco Comunale", category: "Ambiente", points: 75, time: "2-3 ore", description: "Partecipa alla pulizia dei parchi e delle aree verdi per un ambiente più sano." },
+            { id: 2, title: "Piantumazione Urbana", category: "Ambiente", points: 120, time: "4 ore", description: "Contribuisci alla piantumazione di nuovi alberi e alla sensibilizzazione ecologica." },
+            { id: 3, title: "Aiuto Famiglie in Difficoltà", category: "Supporto Sociale", points: 150, time: "3 ore", description: "Supporto diretto alle famiglie del comune che attraversano momenti di fragilità." },
+            { id: 4, title: "Compagnia per Anziani", category: "Supporto Sociale", points: 100, time: "2 ore", description: "Offri il tuo tempo per fare compagnia agli anziani soli della nostra comunità." },
+            { id: 5, title: "Organizzazione Evento Culturale", category: "Cultura", points: 200, time: "Più sessioni", description: "Collabora alla realizzazione di workshop creativi ed eventi culturali locali." },
+            { id: 6, title: "Supporto Formazione", category: "Cultura", points: 130, time: "3-4 ore", description: "Condividi le tue competenze attraverso workshop e sessioni di formazione." },
+            { id: 7, title: "Supporto Protezione Civile", category: "Emergenze", points: 250, time: "4-6 ore", description: "Collaborazione nelle attività di prevenzione e gestione delle criticità locali." },
+            { id: 8, title: "Primo Soccorso Comunitario", category: "Emergenze", points: 180, time: "4 ore", description: "Partecipa ai corsi e alle attività di primo soccorso e gestione crisi." }
         ];
 
         // Mobile Menu Toggle
