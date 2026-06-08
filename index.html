@@ -10,6 +10,8 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         tailwind.config = {
@@ -29,6 +31,37 @@
         .gradient-bg {
             background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
         }
+        .gradient-text {
+            background: linear-gradient(to right, #14b8a6, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #14b8a6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -43,8 +76,8 @@
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#mission" class="hover:text-secondary font-medium transition">Chi Siamo</a>
-                <a href="#pillars" class="hover:text-secondary font-medium transition">Tecnologia</a>
-                <a href="#activities" class="hover:text-secondary font-medium transition">Attività</a>
+                <a href="#challenges" class="hover:text-secondary font-medium transition">Sfide</a>
+                <a href="#missions" class="hover:text-secondary font-medium transition">Missioni</a>
                 <a href="#rewards" class="hover:text-secondary font-medium transition">Ricompense</a>
                 <button onclick="showComingSoon()" class="bg-primary text-white px-6 py-2 rounded-full font-bold hover:bg-secondary transition">Connect Wallet</button>
             </div>
@@ -60,8 +93,8 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4 space-y-4">
             <a href="#mission" class="block hover:text-secondary font-medium">Chi Siamo</a>
-            <a href="#pillars" class="block hover:text-secondary font-medium">Tecnologia</a>
-            <a href="#activities" class="block hover:text-secondary font-medium">Attività</a>
+            <a href="#challenges" class="block hover:text-secondary font-medium">Sfide</a>
+            <a href="#missions" class="block hover:text-secondary font-medium">Missioni</a>
             <a href="#rewards" class="block hover:text-secondary font-medium">Ricompense</a>
             <button onclick="showComingSoon()" class="w-full bg-primary text-white px-6 py-2 rounded-full font-bold">Connect Wallet</button>
         </div>
@@ -71,7 +104,7 @@
     <header class="gradient-bg text-white py-32 px-6 text-center">
         <div class="container mx-auto">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">BeEKind</h1>
-            <p class="text-2xl md:text-3xl mb-8 font-light">Il Futuro del Volontariato</p>
+            <p class="text-2xl md:text-3xl mb-8 font-light italic">"Volontà Reale - Un'Iniziativa per Mozzate"</p>
             <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed opacity-90">
                 Unisciti all'iniziativa rivoluzionaria di <strong>TATUMA®</strong> per il Comune di Mozzate.
                 Blockchain, Intelligenza Artificiale e trasparenza per costruire insieme il bene comune.
@@ -84,7 +117,7 @@
     </header>
 
     <!-- Mission Section -->
-    <section id="mission" class="py-24 px-6 bg-white">
+    <section id="mission" class="py-24 px-6 bg-white section-fade-in">
         <div class="container mx-auto text-center">
             <span class="text-secondary font-bold tracking-widest uppercase text-sm">Innovazione Sociale</span>
             <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-12">La Nostra Missione</h2>
@@ -101,201 +134,220 @@
         </div>
     </section>
 
-    <!-- Pillars Section -->
-    <section id="pillars" class="py-24 px-6 bg-gray-100">
+    <!-- Challenges Section -->
+    <section id="challenges" class="py-24 px-6 bg-gray-100 section-fade-in">
         <div class="container mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Sei pilastri tecnologici</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Cosa rende BeEKind unica nel panorama del volontariato digitale</p>
+                <h2 class="text-4xl font-bold mb-4">Le Sfide della Nostra Comunità</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Trasformiamo le difficoltà in opportunità di crescita condivisa attraverso quattro pilastri d'azione.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Pillar 1 -->
-                <div class="bg-white p-10 rounded-2xl shadow-md hover:shadow-xl transition-shadow border-b-4 border-secondary">
-                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-link text-2xl text-secondary"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Trasparenza Blockchain</h3>
-                    <p class="text-gray-600">Ogni azione è registrata in modo immutabile, garantendo trasparenza totale e verificabilità di ogni contributo.</p>
-                </div>
-                <!-- Pillar 2 -->
-                <div class="bg-white p-10 rounded-2xl shadow-md hover:shadow-xl transition-shadow border-b-4 border-secondary">
-                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-robot text-2xl text-secondary"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">AI-Powered Matching</h3>
-                    <p class="text-gray-600">L'intelligenza artificiale analizza competenze e preferenze per abbinare perfettamente volontari e missioni locali.</p>
-                </div>
-                <!-- Pillar 3 -->
-                <div class="bg-white p-10 rounded-2xl shadow-md hover:shadow-xl transition-shadow border-b-4 border-secondary">
-                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-shield-alt text-2xl text-secondary"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Sicurezza Avanzata</h3>
-                    <p class="text-gray-600">Protocolli crittografici all'avanguardia proteggono l'identità dei cittadini e la sicurezza di tutte le transazioni.</p>
-                </div>
-                <!-- Pillar 4 -->
-                <div class="bg-white p-10 rounded-2xl shadow-md hover:shadow-xl transition-shadow border-b-4 border-secondary">
-                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-bolt text-2xl text-secondary"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Efficienza Ottimizzata</h3>
-                    <p class="text-gray-600">Automazione dei flussi di lavoro per ridurre drasticamente la burocrazia e i tempi di gestione operativa.</p>
-                </div>
-                <!-- Pillar 5 -->
-                <div class="bg-white p-10 rounded-2xl shadow-md hover:shadow-xl transition-shadow border-b-4 border-secondary">
-                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-line text-2xl text-secondary"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Impatto Globale</h3>
-                    <p class="text-gray-600">Un modello progettato a Mozzate ma scalabile e replicabile per qualsiasi comunità nel mondo.</p>
-                </div>
-                <!-- Pillar 6 -->
-                <div class="bg-white p-10 rounded-2xl shadow-md hover:shadow-xl transition-shadow border-b-4 border-secondary">
-                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-trophy text-2xl text-secondary"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Gamification</h3>
-                    <p class="text-gray-600">Un sistema coinvolgente di punti e livelli che rende il contributo sociale un'esperienza gratificante.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Activities Section -->
-    <section id="activities" class="py-24 px-6 bg-white">
-        <div class="container mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16">Ambiti di Intervento</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group p-8 text-center border-2 border-transparent hover:border-orange-200 hover:bg-orange-50 rounded-2xl transition duration-300">
-                    <div class="text-orange-500 mb-6 transform group-hover:scale-110 transition">
-                        <i class="fas fa-users text-5xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4 text-primary">Supporto Sociale</h4>
-                    <p class="text-gray-600">Assistenza agli anziani, supporto alle famiglie e progetti di integrazione.</p>
-                </div>
-                <div class="group p-8 text-center border-2 border-transparent hover:border-green-200 hover:bg-green-50 rounded-2xl transition duration-300">
-                    <div class="text-green-500 mb-6 transform group-hover:scale-110 transition">
-                        <i class="fas fa-seedling text-5xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4 text-primary">Ambiente</h4>
-                    <p class="text-gray-600">Pulizia aree verdi, piantumazione urbana e sensibilizzazione ecologica.</p>
-                </div>
-                <div class="group p-8 text-center border-2 border-transparent hover:border-purple-200 hover:bg-purple-50 rounded-2xl transition duration-300">
-                    <div class="text-purple-500 mb-6 transform group-hover:scale-110 transition">
-                        <i class="fas fa-paint-brush text-5xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4 text-primary">Cultura</h4>
-                    <p class="text-gray-600">Organizzazione di workshop, mostre e formazione per la comunità.</p>
-                </div>
-                <div class="group p-8 text-center border-2 border-transparent hover:border-red-200 hover:bg-red-50 rounded-2xl transition duration-300">
-                    <div class="text-red-500 mb-6 transform group-hover:scale-110 transition">
-                        <i class="fas fa-medkit text-5xl"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4 text-primary">Emergenze</h4>
-                    <p class="text-gray-600">Protezione civile locale e gestione rapida delle crisi comunitarie.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NFT Rewards Section -->
-    <section id="rewards" class="py-24 px-6 bg-primary text-white overflow-hidden relative">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-secondary opacity-20 rounded-full blur-3xl -mr-32 -mt-32"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary opacity-20 rounded-full blur-3xl -ml-32 -mb-32"></div>
-
-        <div class="container mx-auto relative z-10">
-            <h2 class="text-4xl font-bold text-center mb-16">Sistema Ricompense NFT</h2>
-            <p class="text-center max-w-2xl mx-auto mb-16 text-blue-100">Guadagna asset digitali unici che testimoniano il tuo impatto reale e sbloccano vantaggi esclusivi.</p>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Bronzo -->
-                <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-yellow-700/50 hover:bg-white/10 transition">
-                    <div class="text-yellow-600 text-3xl mb-4">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-yellow-600 mb-2">Bronzo</h3>
-                    <p class="text-sm text-blue-200 mb-6">0 - 500 Punti</p>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-start"><i class="fas fa-check text-yellow-600 mt-1 mr-3"></i> NFT Principiante</li>
-                        <li class="flex items-start"><i class="fas fa-check text-yellow-600 mt-1 mr-3"></i> Badge Profilo</li>
-                        <li class="flex items-start"><i class="fas fa-check text-yellow-600 mt-1 mr-3"></i> Missioni Base</li>
-                    </ul>
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 border-t-4 border-teal-500">
+                    <div class="text-teal-500 text-3xl mb-4"><i class="fas fa-eye"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Deficit di Trasparenza</h3>
+                    <p class="text-gray-600">Mancanza di visibilità sui processi decisionali e sull'uso delle risorse pubbliche.</p>
                 </div>
-                <!-- Argento -->
-                <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-gray-400/50 hover:bg-white/10 transition">
-                    <div class="text-gray-300 text-3xl mb-4">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-300 mb-2">Argento</h3>
-                    <p class="text-sm text-blue-200 mb-6">501 - 1500 Punti</p>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-start"><i class="fas fa-check text-gray-300 mt-1 mr-3"></i> NFT Esperto</li>
-                        <li class="flex items-start"><i class="fas fa-check text-gray-300 mt-1 mr-3"></i> Missioni Esclusive</li>
-                        <li class="flex items-start"><i class="fas fa-check text-gray-300 mt-1 mr-3"></i> Sconti Locali</li>
-                    </ul>
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 border-t-4 border-sky-500">
+                    <div class="text-sky-500 text-3xl mb-4"><i class="fas fa-file-invoice"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Inefficienza Burocratica</h3>
+                    <p class="text-gray-600">Procedure amministrative lente, complesse e poco accessibili per i cittadini.</p>
                 </div>
-                <!-- Oro -->
-                <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-accent/50 hover:bg-white/10 transition">
-                    <div class="text-accent text-3xl mb-4">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-accent mb-2">Oro</h3>
-                    <p class="text-sm text-blue-200 mb-6">1501 - 3000 Punti</p>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-start"><i class="fas fa-check text-accent mt-1 mr-3"></i> NFT Veterano</li>
-                        <li class="flex items-start"><i class="fas fa-check text-accent mt-1 mr-3"></i> Eventi VIP</li>
-                        <li class="flex items-start"><i class="fas fa-check text-accent mt-1 mr-3"></i> Riconoscimento Pubblico</li>
-                    </ul>
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 border-t-4 border-amber-500">
+                    <div class="text-amber-500 text-3xl mb-4"><i class="fas fa-users"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Scarso Coinvolgimento</h3>
+                    <p class="text-gray-600">Bassa partecipazione dei cittadini alla vita comunitaria e alle attività di volontariato.</p>
                 </div>
-                <!-- Platino -->
-                <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-blue-300/50 hover:bg-white/10 transition">
-                    <div class="text-blue-300 text-3xl mb-4">
-                        <i class="fas fa-gem"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-blue-300 mb-2">Platino</h3>
-                    <p class="text-sm text-blue-200 mb-6">3000+ Punti</p>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-start"><i class="fas fa-check text-blue-300 mt-1 mr-3"></i> NFT Leggenda</li>
-                        <li class="flex items-start"><i class="fas fa-check text-blue-300 mt-1 mr-3"></i> Platform Governance</li>
-                        <li class="flex items-start"><i class="fas fa-check text-blue-300 mt-1 mr-3"></i> Premi Esclusivi</li>
-                    </ul>
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300 border-t-4 border-rose-500">
+                    <div class="text-rose-500 text-3xl mb-4"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Difficoltà di Finanziamento</h3>
+                    <p class="text-gray-600">Scarsità di fondi per progetti di valore sociale, culturale e ambientale.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-24 text-center">
-                <h3 class="text-3xl font-bold mb-8">Ecosistema Integrato</h3>
-                <p class="mb-10 max-w-2xl mx-auto text-blue-100">I nostri asset sono conformi agli standard ERC-721/1155 e scambiabili sui principali marketplace:</p>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <div class="bg-white text-primary px-8 py-3 rounded-xl font-bold shadow-lg">Uniswap</div>
-                    <div class="bg-white text-primary px-8 py-3 rounded-xl font-bold shadow-lg">OpenSea</div>
-                    <div class="bg-white text-primary px-8 py-3 rounded-xl font-bold shadow-lg">Binance</div>
+    <!-- Interactive Missions Section -->
+    <section id="missions" class="py-24 px-6 bg-white section-fade-in">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Esplora le Missioni</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Scegli una categoria e scopri come puoi contribuire attivamente alla crescita di Mozzate.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-3 justify-center mb-10">
+                        <button class="mission-filter-btn active bg-secondary text-white py-2 px-6 rounded-full font-semibold transition" data-filter="all">Tutte</button>
+                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Ambiente">Ambiente</button>
+                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Abbellimento">Abbellimento</button>
+                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Sociale">Sociale</button>
+                        <button class="mission-filter-btn bg-gray-100 hover:bg-gray-200 py-2 px-6 rounded-full font-semibold transition" data-filter="Cultura">Cultura</button>
+                    </div>
+
+                    <div id="mission-grid" class="grid sm:grid-cols-2 gap-6">
+                        <!-- Mission cards generated by JS -->
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-50 p-8 rounded-3xl shadow-inner sticky top-24">
+                        <h3 class="text-2xl font-bold text-center mb-6">Distribuzione Attività</h3>
+                        <div class="chart-container">
+                            <canvas id="missionsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Mission Proposal -->
+    <section id="ai-proposal" class="py-24 px-6 bg-primary text-white section-fade-in">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4"><span class="text-accent">✨ Proponi</span> tramite IA</h2>
+                <p class="text-blue-100 text-xl">Hai un'idea per migliorare Mozzate? Lascia che la nostra IA la trasformi in una missione.</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/20">
+                <label class="block text-lg font-medium mb-4">La tua idea in poche parole:</label>
+                <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                    <input type="text" id="mission-idea" class="flex-1 bg-white/5 border border-white/30 rounded-xl px-6 py-4 text-white placeholder:text-blue-200 outline-none focus:border-accent" placeholder="Es: pulire le sponde del torrente Bozzente...">
+                    <button id="generate-mission-btn" class="bg-accent text-primary font-bold px-8 py-4 rounded-xl hover:bg-yellow-500 transition whitespace-nowrap">Genera Missione</button>
+                </div>
+
+                <div id="gemini-result-loader" class="hidden flex flex-col items-center justify-center py-10">
+                    <div class="loader"></div>
+                    <p class="mt-4 text-blue-200">L'IA sta elaborando la tua proposta...</p>
+                </div>
+
+                <div id="gemini-result" class="space-y-6">
+                    <!-- AI response here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reward Cycle Section -->
+    <section id="rewards" class="py-24 px-6 bg-white section-fade-in">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Partecipa, Guadagna, Cresci</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Ogni tuo contributo ha un valore riconosciuto sulla Blockchain attraverso NFT e Punti VR.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-8">Il Ciclo Virtuoso</h3>
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="text-xl font-bold">Completa le Missioni</h4>
+                                <p class="text-gray-600">Scegli le attività che preferisci e contribuisci attivamente alla comunità.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="text-xl font-bold">Guadagna Punti VR</h4>
+                                <p class="text-gray-600">Accumula Punti Volontà Reale per ogni azione certificata.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="text-xl font-bold">Sblocca Ricompense NFT</h4>
+                                <p class="text-gray-600">Ottieni badge digitali unici che certificano il tuo impegno per sempre.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex justify-center gap-6">
+                        <div class="text-center">
+                            <div class="text-4xl mb-2">🥉</div>
+                            <p class="text-xs font-bold uppercase tracking-tighter">Bronzo</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl mb-2">🌍</div>
+                            <p class="text-xs font-bold uppercase tracking-tighter">Eco Warrior</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl mb-2">🏆</div>
+                            <p class="text-xs font-bold uppercase tracking-tighter">Oro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-10 rounded-3xl shadow-inner">
+                    <h3 class="text-2xl font-bold text-center mb-8">Esempi di Ricompense</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="pointsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillars / Technology Section -->
+    <section id="technology" class="py-24 px-6 bg-gray-100 section-fade-in">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">I Pilastri Tecnologici</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Utilizziamo le migliori tecnologie per garantire efficienza e sicurezza.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="text-4xl mb-3">🔗</div>
+                    <h4 class="font-bold">Blockchain</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="text-4xl mb-3">🤖</div>
+                    <h4 class="font-bold">AI (Gemini)</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="text-4xl mb-3">⚛️</div>
+                    <h4 class="font-bold">React</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="text-4xl mb-3">📦</div>
+                    <h4 class="font-bold">IPFS</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="text-4xl mb-3">⚙️</div>
+                    <h4 class="font-bold">n8n</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="text-4xl mb-3">🏆</div>
+                    <h4 class="font-bold">NFTs</h4>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white pt-20 pb-10 px-6 border-t">
+    <footer class="bg-primary text-white pt-20 pb-10 px-6 border-t border-white/10">
         <div class="container mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center mb-16">
                 <div class="mb-8 md:mb-0">
-                    <span class="text-3xl font-bold text-primary">BeEKind</span>
-                    <p class="text-gray-500 mt-2">Tecnologia per il Bene Comune</p>
-                    <h4 class="font-bold text-primary mt-6 mb-4">Seguici sui Social</h4>
+                    <span class="text-3xl font-bold">BeEKind</span>
+                    <p class="text-blue-200 mt-2">Tecnologia per il Bene Comune</p>
+                    <h4 class="font-bold mt-6 mb-4">Seguici sui Social</h4>
                 </div>
-                <div class="flex gap-6 text-2xl text-secondary">
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fab fa-discord"></i></a>
+                <div class="flex gap-6 text-2xl text-accent">
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-discord"></i></a>
                 </div>
             </div>
-            <div class="border-t pt-8 text-center text-gray-400 text-sm">
+            <div class="border-t border-white/10 pt-8 text-center text-blue-200 text-sm">
                 <p>&copy; 2026 TATUMA® - Iniziativa BeEKind per il Comune di Mozzate. <br class="md:hidden"> Tutti i diritti riservati.</p>
                 <div class="mt-4 space-x-4">
-                    <a href="#" class="hover:text-primary">Privacy Policy</a>
-                    <a href="#" class="hover:text-primary">Terms of Service</a>
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -312,15 +364,26 @@
             </div>
             <h3 class="text-2xl font-bold mb-4">Coming Soon!</h3>
             <p class="text-gray-600 mb-8">Stiamo perfezionando l'integrazione blockchain. Il portale BeEKind sarà attivo a breve nel Comune di Mozzate.</p>
-            <button onclick="hideComingSoon()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition">Ho capito</button>
+            <button onclick="hideComingSoon()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition text-gray-800">Ho capito</button>
         </div>
     </div>
 
     <script>
+        // Data for missions
+        const missionData = [
+            { id: 1, title: "Parco Splendente", category: "Ambiente", points: 75, time: "2-3 ore", description: "Raccogli rifiuti e detriti dal Parco Comunale per mantenerlo pulito e sicuro." },
+            { id: 2, title: "Sentieri Puliti", category: "Ambiente", points: 90, time: "3-4 ore", description: "Mantieni puliti e accessibili i sentieri naturali e le aree verdi periferiche." },
+            { id: 3, title: "Fioritura Urbana", category: "Abbellimento", points: 80, time: "2-4 ore", description: "Pianta fiori e piccole piante in aiuole pubbliche per migliorare l'estetica urbana." },
+            { id: 4, title: "Murales Comunitario", category: "Abbellimento", points: 200, time: "Più sessioni", description: "Realizza opere d'arte su pareti pubbliche per trasformare spazi anonimi." },
+            { id: 5, title: "Spesa Solidale", category: "Sociale", points: 120, time: "2-3 ore", description: "Aiuta nella raccolta e distribuzione di generi alimentari per le famiglie bisognose." },
+            { id: 6, title: "Compagnia Anziani", category: "Sociale", points: 100, time: "2 ore", description: "Offri supporto e compagnia agli anziani soli, aiutandoli con piccole commissioni." },
+            { id: 7, title: "Cineforum all'Aperto", category: "Cultura", points: 150, time: "4-5 ore", description: "Collabora all'organizzazione di proiezioni cinematografiche in spazi pubblici." },
+            { id: 8, title: "Storie di Mozzate", category: "Cultura", points: 130, time: "3-4 ore", description: "Raccogli e trascrivi testimonianze orali degli anziani per preservare la memoria storica." }
+        ];
+
         // Mobile Menu Toggle
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
-
         btn.addEventListener('click', () => {
             menu.classList.toggle('hidden');
         });
@@ -338,13 +401,134 @@
             modal.classList.remove('flex');
         }
 
-        // Close modal on click outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('coming-soon-modal');
-            if (event.target == modal) {
-                hideComingSoon();
-            }
+        // Mission Filtering Logic
+        function renderMissions(filter = 'all') {
+            const grid = document.getElementById('mission-grid');
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? missionData : missionData.filter(m => m.category === filter);
+
+            filtered.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition border border-gray-100';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">${m.category}</span>
+                        <span class="text-secondary font-bold">${m.points} VR</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-primary">${m.title}</h3>
+                    <p class="text-gray-600 text-sm mb-4">${m.description}</p>
+                    <div class="flex items-center text-gray-400 text-xs mb-4">
+                        <i class="fas fa-clock mr-2"></i> ${m.time}
+                    </div>
+                    <button onclick="showComingSoon()" class="w-full border border-secondary text-secondary font-bold py-2 rounded-xl hover:bg-secondary hover:text-white transition">Partecipa</button>
+                `;
+                grid.appendChild(card);
+            });
         }
+
+        // Charts Initialization
+        let missionsChart;
+        function updateMissionsChart() {
+            const ctx = document.getElementById('missionsChart').getContext('2d');
+            const counts = missionData.reduce((acc, m) => {
+                acc[m.category] = (acc[m.category] || 0) + 1;
+                return acc;
+            }, {});
+
+            if (missionsChart) missionsChart.destroy();
+            missionsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(counts),
+                    datasets: [{
+                        data: Object.values(counts),
+                        backgroundColor: ['#14b8a6', '#0ea5e9', '#f59e0b', '#8b5cf6'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        function renderPointsChart() {
+            const ctx = document.getElementById('pointsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pulizia Parco', 'Spesa Solidale', 'Murales', 'Cineforum'],
+                    datasets: [{
+                        label: 'Punti VR',
+                        data: [75, 120, 200, 150],
+                        backgroundColor: '#2b6cb0',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { beginAtZero: true } }
+                }
+            });
+        }
+
+        // Filter Buttons event listeners
+        document.querySelectorAll('.mission-filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.mission-filter-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-secondary', 'text-white');
+                    b.classList.add('bg-gray-100');
+                });
+                btn.classList.add('active', 'bg-secondary', 'text-white');
+                btn.classList.remove('bg-gray-100');
+                renderMissions(btn.dataset.filter);
+            });
+        });
+
+        // AI Proposal Simulation
+        const generateBtn = document.getElementById('generate-mission-btn');
+        const resultDiv = document.getElementById('gemini-result');
+        const loader = document.getElementById('gemini-result-loader');
+
+        generateBtn.addEventListener('click', () => {
+            const idea = document.getElementById('mission-idea').value;
+            if (!idea) return;
+
+            loader.classList.remove('hidden');
+            resultDiv.innerHTML = '';
+
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                resultDiv.innerHTML = `
+                    <div class="p-6 bg-white/20 rounded-2xl border border-white/30">
+                        <h4 class="text-xl font-bold text-accent mb-2">Custodi del Torrente Bozzente</h4>
+                        <p class="text-sm text-blue-100 mb-4 italic">Categoria: Ambiente | Punti VR: 150 | Tempo: 4-6 ore</p>
+                        <p class="text-white mb-6">Proposta generata: Un'azione di bonifica coordinata per ripristinare la salute dell'ecosistema locale...</p>
+                        <button onclick="showComingSoon()" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition">Approva e Pubblica</button>
+                    </div>
+                `;
+            }, 2000);
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
+
+        // Initial Load
+        window.onload = () => {
+            renderMissions();
+            updateMissionsChart();
+            renderPointsChart();
+        };
     </script>
 </body>
 </html>
