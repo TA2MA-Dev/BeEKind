@@ -1,4 +1,4 @@
-            - nome: Configura l'ambiente Node.js
+- nome: Configura l'ambiente Node.js
   usi: actions/setup-node@v6.4.0
   con:
     # Specifiche della versione da utilizzare. Esempi: 12.x, 10.15.1, >=10.15.0.
