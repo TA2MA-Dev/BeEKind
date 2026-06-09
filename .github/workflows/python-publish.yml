@@ -1,0 +1,28 @@
+            - nome: Configura l'ambiente Node.js
+  usi: actions/setup-node@v6.4.0
+  con:
+    # Specifiche della versione da utilizzare. Esempi: 12.x, 10.15.1, >=10.15.0.
+    versione del nodo: # opzionale
+    # File contenente la specifica della versione da utilizzare. Esempi: package.json, .nvmrc, .node-version, .tool-versions.
+    file-versione-node: # facoltativo
+    # Architettura di destinazione che Node deve utilizzare. Esempi: x86, x64. Per impostazione predefinita verrà utilizzata l'architettura di sistema.
+    architettura: # opzionale
+    # Imposta questa opzione se desideri che l'azione verifichi la presenza della versione più recente disponibile che soddisfi le specifiche di versione.
+    verifica-ultime: # facoltativo
+    # Registro opzionale da configurare per l'autenticazione. Imposterà il registro in un file .npmrc e .yarnrc a livello di progetto e configurerà l'autenticazione per leggere da env.NODE_AUTH_TOKEN.
+    registro-url: # facoltativo
+    # Ambito opzionale per l'autenticazione con registri con ambito. In caso di utilizzo del registro GitHub Packages (https://npm.pkg.github.com/), verrà utilizzato il proprietario del repository.
+    ambito: # opzionale
+    # Utilizzato per scaricare le distribuzioni Node da node-versions. Poiché esiste un valore predefinito, in genere non viene fornito dall'utente. Quando si esegue questa azione su github.com, il valore predefinito è sufficiente. Quando si esegue su GHES, è possibile passare un token di accesso personale per github.com se si riscontrano limitazioni di frequenza.
+    token: # opzionale, il valore predefinito è ${{ github.server_url == 'https://github.com' && github.token || '' }}
+    # Utilizzato per specificare un gestore di pacchetti per la memorizzazione nella cache nella directory predefinita. Valori supportati: npm, yarn, pnpm.
+    cache: # opzionale
+    # Impostare su false per disabilitare la memorizzazione automatica nella cache. Per impostazione predefinita, la memorizzazione nella cache è abilitata quando devEngines.packageManager o il campo packageManager di livello superiore in package.json specificano npm come gestore di pacchetti.
+    cache del gestore pacchetti: # opzionale, il valore predefinito è true
+    # Utilizzato per specificare il percorso di un file di dipendenza: package-lock.json, yarn.lock, ecc. Supporta caratteri jolly o un elenco di nomi di file per la memorizzazione nella cache di più dipendenze.
+    cache-dependency-path: # facoltativo
+    # Utilizzato per specificare un mirror alternativo da cui scaricare i binari di Node.js
+    specchio: # opzionale
+    # Il token utilizzato come intestazione di autorizzazione durante il recupero dal mirror
+    token specchio: # opzionale
+          
