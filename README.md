@@ -1,34 +1,54 @@
-# BeEKind - Il Futuro del Volontariato
+# 🐝 BeEKind - Il Futuro del Volontariato Digitale
 
-Unisciti all'iniziativa rivoluzionaria di **TATUMA®** per il Comune di Mozzate. Blockchain, Intelligenza Artificiale e trasparenza per costruire insieme il bene comune.
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://beekind-live-v1.onrender.com)
 
-## Chi Siamo
-**TATUMA®** è l'innovativa piattaforma che rivoluziona il volontariato attraverso blockchain e intelligenza artificiale.
+Unisciti all'iniziativa rivoluzionaria di **TATUMA®** per il Comune di Mozzate. **BeEKind** utilizza Blockchain e Intelligenza Artificiale per costruire insieme il bene comune attraverso un ecosistema trasparente e meritocratico.
 
-## La Nostra Missione
-Creiamo un ecosistema trasparente e incentivante che permette ai cittadini di contribuire attivamente al bene comune della propria comunità, utilizzando tecnologie all'avanguardia per garantire trasparenza, efficienza e riconoscimento del valore sociale.
+---
 
-## Sei pilastri tecnologici
-1.  **Trasparenza Blockchain**: Ogni azione è registrata in modo immutabile, garantendo trasparenza totale e verificabilità.
-2.  **AI-Powered Matching**: L'intelligenza artificiale abbina volontari e missioni in base a competenze e preferenze.
-3.  **Sicurezza Avanzata**: Protocolli di sicurezza all'avanguardia proteggono dati personali e transazioni.
-4.  **Efficienza Ottimizzata**: Processi automatizzati, riduzione burocrazia e tempi di gestione delle attività.
-5.  **Impatto Globale**: Modello scalabile e replicabile per comunità di tutto il mondo.
-6.  **Gamification**: Sistema di punti, livelli e ricompense per motivare la partecipazione.
+## 🚀 Visualizza il Sito
+Puoi accedere alla versione live dell'applicazione qui:
+👉 **[https://beekind-live-v1.onrender.com](https://beekind-live-v1.onrender.com)**
 
-## Attività di Volontariato
-*   **Supporto Sociale**: Aiuto anziani, famiglie in difficoltà, integrazione sociale.
-*   **Ambiente**: Pulizia parchi, piantumazione, sensibilizzazione ecologica.
-*   **Cultura**: Eventi culturali, workshop creativi, formazione.
-*   **Emergenze**: Protezione civile, primo soccorso, gestione crisi.
+---
 
-## Sistema Ricompense NFT
-Guadagna ricompense verificabili e scambiabili per il tuo contributo alla comunità:
+## ✨ Caratteristiche Principali
+*   **Trasparenza Blockchain**: Ogni azione è registrata in modo immutabile su registro distribuito.
+*   **AI-Powered Matching**: Algoritmi avanzati per abbinare le tue competenze alle necessità della comunità.
+*   **Sistema NFT Reward**: Guadagna Badge digitali (Bronzo, Argento, Oro, Platino) scambiabili e certificati.
+*   **Gamification**: Trasforma il volontariato in un'esperienza coinvolgente con punti VR e livelli.
+*   **Governance Locale**: I volontari di livello Platino partecipano alle decisioni della piattaforma.
 
-*   **Bronzo (0-500 punti)**: NFT Volontario Principiante, Badge di riconoscimento, Accesso missioni base.
-*   **Argento (501-1500 punti)**: NFT Volontario Esperto, Missioni esclusive, Sconti partner locali.
-*   **Oro (1501-3000 punti)**: NFT Volontario Veterano, Eventi speciali, Riconoscimenti pubblici.
-*   **Platino (3000+ punti)**: NFT Volontario Leggenda, Governance piattaforma, Premi esclusivi.
+## 🛠️ Sviluppo Locale
 
-### Token Scambiabili
-Tutti gli NFT sono scambiabili su piattaforme decentralizzate e convertibili in token utilizzabili su: **Uniswap**, **OpenSea**, **Binance**.
+### Prerequisiti
+*   Node.js (v18 o superiore)
+*   NPM
+
+### Installazione e Avvio
+1.  Clona il repository:
+    ```bash
+    git clone https://github.com/TA2MA-Dev/BeEKind.git
+    ```
+2.  Installa le dipendenze:
+    ```bash
+    npm install
+    ```
+3.  Avvia il server di sviluppo:
+    ```bash
+    npm
+    run start
+    ```
+Il sito sarà accessibile all'indirizzo `http://localhost:3000`.
+
+## 🌐 Tecnologie Utilizzate
+*   **Frontend**: Tailwind CSS, FontAwesome, Chart.js.
+*   **Logic**: Vanilla JavaScript (ES6+).
+*   **Deployment**: Render.
+*   **Assets**: Design personalizzato "HoneyComb" by TATUMA®.
+
+## 👨‍💻 Contatti & Social
+Resta aggiornato sulle ultime novità e unisciti alla nostra community attraverso i link ufficiali presenti nel footer della landing page.
+
+---
+© 2026 **TATUMA®** - Tecnologia per il Bene Comune. Tutti i diritti riservati.

@@ -692,10 +692,18 @@
         }
 
         function hideComingSoon() {
-            const modal = document.getElementById('coming-soon-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            const modal = document.getElementById("coming-soon-modal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
         }
+
+        // Click outside to close modals
+        window.addEventListener("click", (e) => {
+            const expModal = document.getElementById("explanation-modal");
+            const csModal = document.getElementById("coming-soon-modal");
+            if (e.target === expModal) hideExplanation();
+            if (e.target === csModal) hideComingSoon();
+        });
 
         // Mission Filtering Logic
         function renderMissions(filter = 'all') {
@@ -790,21 +798,26 @@
         const resultDiv = document.getElementById('gemini-result');
         const loader = document.getElementById('gemini-result-loader');
 
-        generateBtn.addEventListener('click', () => {
-            const idea = document.getElementById('mission-idea').value;
-            if (!idea) return;
+        generateBtn.addEventListener("click", () => {
+            const idea = document.getElementById("mission-idea").value.trim();
+            if (!idea) {
+                alert("Inserisci un'idea per permettere all'AI di analizzarla.");
+                return;
+            }
 
-            loader.classList.remove('hidden');
-            resultDiv.innerHTML = '';
+            generateBtn.disabled = true;
+            loader.classList.remove("hidden");
+            resultDiv.innerHTML = "";
 
             setTimeout(() => {
-                loader.classList.add('hidden');
+                generateBtn.disabled = false;
+                loader.classList.add("hidden");
                 resultDiv.innerHTML = `
-                    <div class="p-6 bg-white/20 rounded-2xl border border-white/30">
+                    <div class="p-6 bg-white/20 rounded-2xl border border-white/30 animate-fade-in">
                         <h4 class="text-xl font-bold text-accent mb-2">Custodi del Torrente Bozzente</h4>
                         <p class="text-sm text-blue-100 mb-4 italic">Categoria: Ambiente | Punti VR: 150 | Tempo: 4-6 ore</p>
-                        <p class="text-white mb-6">Proposta generata: Un'azione di bonifica coordinata per ripristinare la salute dell'ecosistema locale...</p>
-                        <button onclick="showComingSoon()" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition">Approva e Pubblica</button>
+                        <p class="text-white mb-6">Proposta generata: Un action di bonifica coordinata per ripristinare la salute dell'ecosistema locale...</p>
+                        <button onclick="showComingSoon()" class="w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition shadow-lg">Approva e Pubblica</button>
                     </div>
                 `;
             }, 2000);

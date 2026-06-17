@@ -1,5 +1,3 @@
 node_modules/
 *.log
-screenshot.png
-modal_screenshot.png
-verify_ui.js
+verify_final.js
