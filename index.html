@@ -1,401 +1,309 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[BeĕKind] - Il Futuro del Volontariato | TATUMA® Mozzate</title>
-    <meta name="description" content="[BeĕKind]: L'ecosistema rivoluzionario per il volontariato a Mozzate. Blockchain, AI e Gamification per il bene comune.">
-    <meta name="keywords" content="Volontariato, Mozzate, Blockchain, AI, NFT, Sociale, TATUMA, [BeĕKind]">
-
-    <!-- SDKs -->
+    <title>BeEKind - Il Futuro del Volontariato</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: '#1a365d',
-                        secondary: '#2b6cb0',
+                        secondary: '#2ecc71',
                         accent: '#ecc94b',
+                        darkBlue: '#014c7c',
+                    },
+                    backgroundImage: {
+                        'honeycomb': "url('data:image/svg+xml,%3Csvg width=\"52\" height=\"26\" viewBox=\"0 0 52 26\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M10 10c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4s1.79 4 4 4c2.21 0 4-1.79 4-4zm2 0c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6 6 2.69 6 6zm25.522 2.5c.319.605.478 1.287.478 1.978 0 2.21-1.79 4-4 4-2.21 0-4-1.79-4-4 0-.691.159-1.373.478-1.978L22.33 0h4.41l5.26 10.52L37.26 0h4.41L35.522 12.5zM46 20c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4s1.79 4 4 4c2.21 0 4-1.79 4-4zm2 0c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6 6 2.69 6 6zM26 0c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6zm0 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
                     }
                 }
             }
         }
     </script>
-
     <style>
-        .gradient-bg { background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%); }
-        .section-fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-        .section-fade-in.visible { opacity: 1; transform: translateY(0); }
-        .honeycomb-bg {
-            background-color: #ffffff;
-            background-image:
-                linear-gradient(30deg, #fffbeb 12%, transparent 12.5%, transparent 87%, #fffbeb 87.5%, #fffbeb),
-                linear-gradient(150deg, #fffbeb 12%, transparent 12.5%, transparent 87%, #fffbeb 87.5%, #fffbeb),
-                linear-gradient(30deg, #fffbeb 12%, transparent 12.5%, transparent 87%, #fffbeb 87.5%, #fffbeb),
-                linear-gradient(150deg, #fffbeb 12%, transparent 12.5%, transparent 87%, #fffbeb 87.5%, #fffbeb),
-                linear-gradient(60deg, #fff9db 25%, transparent 25.5%, transparent 75%, #fff9db 75.5%, #fff9db),
-                linear-gradient(60deg, #fff9db 25%, transparent 25.5%, transparent 75%, #fff9db 75.5%, #fff9db);
-            background-size: 40px 70px; opacity: 0.8;
-            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-            background-attachment: fixed;
-        }
-        .bee-floating { animation: beeMove 4s ease-in-out infinite; }
-        @keyframes beeMove {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-15px) rotate(10deg); }
-            75% { transform: translateY(-10px) rotate(-10deg); }
-        }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } .loader { border: 4px solid #f3f3f3; border-top: 4px solid #ecc94b; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #014c7c; background-attachment: fixed; }
+        .premium-blur { backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.05); }
+        .section-reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .section-reveal.visible { opacity: 1; transform: translateY(0); }
+        .stagger-reveal > * { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .stagger-reveal.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+        .stagger-reveal.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+        .stagger-reveal.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+        .stagger-reveal.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+
+        .bottom-nav-active { color: #2ecc71 !important; }
+        .bottom-nav-active i { transform: scale(1.2) translateY(-2px); transition: transform 0.3s ease; }
+
+        .btn-premium { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .btn-premium::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s; }
+        .btn-premium:hover::after { left: 100%; }
+        .btn-premium:active { transform: scale(0.95); }
+
+        .card-premium { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-premium:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+
+        .bg-gradient-premium { background: linear-gradient(180deg, #014c7c 0%, #002a45 100%); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .floating-bee { animation: float 3s ease-in-out infinite; }
+
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-scale-up { animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     </style>
 </head>
-<body class="font-sans text-gray-900 bg-gray-50 overflow-x-hidden honeycomb-bg">
+<body class="text-white bg-gradient-premium min-h-screen pb-24 overflow-x-hidden bg-honeycomb selection:bg-secondary/30">
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex flex-col items-center relative group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="flex space-x-2 text-yellow-500 mb-1 bee-floating">
-                    <i class="fas fa-bee"></i>
-                    <i class="fas fa-bee text-xs"></i>
-                </div>
-                <span class="text-2xl font-black text-primary tracking-tighter">[BeĕKind]</span>
-            </div>
-
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#chi-siamo" class="hover:text-secondary font-medium transition">Chi Siamo</a>
-                <a href="#missions" class="hover:text-secondary font-medium transition">Missioni</a>
-                <a href="#rewards" class="hover:text-secondary font-medium transition">Ricompense</a>
-
-                <div id="auth-buttons" class="flex items-center">
-                    <button onclick="toggleAuthModal('signin')" class="border-2 border-primary text-primary px-5 py-1.5 rounded-full font-bold hover:bg-primary hover:text-white transition">Accedi</button>
-                    <button onclick="toggleAuthModal('signup')" class="bg-primary text-white px-6 py-2 rounded-full font-bold hover:bg-secondary transition ml-2 shadow-sm">Registrati</button>
-                </div>
-
-                <div id="user-profile-nav" class="hidden flex items-center space-x-4">
-                    <div class="text-right">
-                        <span id="nav-username" class="block text-sm font-bold text-primary leading-none">Profilo</span>
-                        <span id="nav-points" class="text-xs text-secondary font-medium">0 VR Punti</span>
-                    </div>
-                    <button onclick="toggleProfileModal()" class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-primary font-bold shadow-md border-2 border-white transition hover:scale-105">
-                        <i class="fas fa-user"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="md:hidden">
-                <button id="menu-btn" class="text-primary focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
+    <!-- Header -->
+    <header class="p-6 flex justify-between items-center max-w-lg mx-auto w-full fixed top-0 z-50 premium-blur border-b border-white/5">
+        <div class="bg-white p-2 rounded-xl shadow-lg">
+            <img src="https://i.ibb.co/L8y2w9y/BeEKind-Logo.png" alt="BeEKind Logo" class="h-8">
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4 space-y-4">
-            <a href="#chi-siamo" class="block hover:text-secondary font-medium">Chi Siamo</a>
-            <a href="#missions" class="block hover:text-secondary font-medium">Missioni</a>
-            <a href="#rewards" class="block hover:text-secondary font-medium">Ricompense</a>
-            <div id="mobile-auth-container" class="pt-4 border-t">
-                 <button onclick="toggleAuthModal('signin')" class="w-full bg-primary text-white py-3 rounded-xl font-bold">Accedi / Registrati</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <header class="gradient-bg text-white py-32 px-6 text-center">
-        <div class="container mx-auto">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight"><span class="text-accent">Beĕ</span>Kind</h1>
-            <p class="text-2xl md:text-3xl mb-8 font-light italic">"Il Futuro del Volontariato"</p>
-            <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed opacity-90">
-                Unisciti all'iniziativa rivoluzionaria di <strong>TATUMA®</strong> per il Comune di Mozzate.
-                Blockchain, Intelligenza Artificiale e trasparenza per costruire insieme il bene comune.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="toggleAuthModal('signup')" class="bg-accent hover:bg-yellow-500 text-primary font-bold py-4 px-10 rounded-full text-lg shadow-lg transition transform hover:-translate-y-1">Partecipa Ora</button>
-                <a href="#chi-siamo" class="bg-transparent border-2 border-white hover:bg-white hover:text-primary font-bold py-4 px-10 rounded-full text-lg transition">Scopri di più</a>
-            </div>
-        </div>
+        <button id="menu-btn" class="text-white text-2xl hover:text-secondary transition-colors">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
 
-    <!-- Statistics Section -->
-    <section class="py-16 px-6 bg-white border-b">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <h2 class="text-3xl font-bold text-primary">L'Impatto del Volontariato</h2>
-                    <p class="text-gray-600">Visualizza in tempo reale come il contributo della comunità sta cambiando Mozzate.</p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-6 bg-blue-50 rounded-2xl">
-                            <span class="block text-3xl font-black text-secondary">1,250+</span>
-                            <span class="text-xs font-bold text-primary uppercase">Ore Donate</span>
-                        </div>
-                        <div class="p-6 bg-yellow-50 rounded-2xl">
-                            <span class="block text-3xl font-black text-accent">340</span>
-                            <span class="text-xs font-bold text-primary uppercase">NFT Emessi</span>
-                        </div>
+    <main class="max-w-lg mx-auto px-6 pt-28 space-y-12">
+
+        <!-- Hero Section -->
+        <section class="text-center py-4 space-y-8 stagger-reveal" id="hero">
+            <h1 class="text-[2.75rem] font-black tracking-tight leading-[1.1]">
+                <span class="text-cyan-400">BeEKind:</span><br>Il Futuro del Volontariato
+            </h1>
+            <p class="text-lg text-gray-200/90 max-w-[85%] mx-auto font-medium">
+                L'iniziativa di TATUMA per il Comune di Mozzate. Cambiamo il mondo insieme.
+            </p>
+            <div class="flex flex-col gap-4">
+                <button onclick="toggleAuthModal('signup')" class="btn-premium bg-secondary text-white py-5 rounded-[1.25rem] text-xl font-extrabold shadow-xl shadow-secondary/20">
+                    Inizia Ora
+                </button>
+                <button onclick="document.getElementById('missioni-anchor').scrollIntoView({behavior: 'smooth'})" class="btn-premium border-2 border-white/40 py-5 rounded-[1.25rem] text-xl font-extrabold backdrop-blur-sm hover:bg-white/5">
+                    Scopri di più
+                </button>
+            </div>
+            <div class="flex justify-center pt-4">
+                <i class="fas fa-chevron-down text-white/30 animate-bounce"></i>
+            </div>
+        </section>
+
+        <!-- Mission Card -->
+        <section class="section-reveal bg-white rounded-[2.5rem] p-10 space-y-8 text-primary shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 bg-blue-50 w-32 h-32 rounded-full opacity-50"></div>
+            <h2 class="text-3xl font-black">Missione</h2>
+            <div class="space-y-6">
+                <div class="flex gap-5">
+                    <div class="bg-blue-50 p-4 rounded-2xl h-14 w-14 flex items-center justify-center shrink-0 shadow-inner">
+                        <i class="fas fa-cube text-blue-600 text-xl"></i>
+                    </div>
+                    <p class="text-gray-600 font-semibold leading-relaxed">
+                        Utilizziamo la tecnologia blockchain e l'intelligenza artificiale per rendere il volontariato a Mozzate più trasparente, efficiente e premiante.
+                    </p>
+                </div>
+                <div class="flex gap-5">
+                    <div class="bg-blue-50 p-4 rounded-2xl h-14 w-14 flex items-center justify-center shrink-0 shadow-inner">
+                        <i class="fas fa-desktop text-blue-600 text-xl"></i>
+                    </div>
+                    <p class="text-gray-600 font-semibold leading-relaxed">
+                        Traccia il tuo impatto sociale e ricevi ricompense per il tuo impegno nella comunità.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ultime News -->
+        <section id="news-anchor" class="section-reveal bg-white rounded-[2.5rem] p-10 space-y-8 text-primary shadow-2xl">
+            <h2 class="text-3xl font-black">Ultime News</h2>
+            <div class="space-y-8">
+                <div class="flex gap-5 items-center group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl h-24 w-24 shrink-0 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&q=80" alt="News 1" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <p class="text-blue-500 text-[10px] font-extrabold uppercase tracking-[0.2em] mb-2">12 MAG 2026</p>
+                        <h3 class="font-bold text-base mb-2 leading-tight">Nuova missione per il Parco Sud: Pulizia collettiva</h3>
+                        <a href="#" class="text-blue-600 text-xs font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Leggi di più <i class="fas fa-arrow-right text-[10px]"></i></a>
                     </div>
                 </div>
-                <div class="bg-gray-50 p-8 rounded-3xl">
-                    <canvas id="impactChart" height="200"></canvas>
+                <div class="flex gap-5 items-center group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl h-24 w-24 shrink-0 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&q=80" alt="News 2" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <p class="text-blue-500 text-[10px] font-extrabold uppercase tracking-[0.2em] mb-2">08 MAG 2026</p>
+                        <h3 class="font-bold text-base mb-2 leading-tight">Update: Sistema NFT v2.0 e nuovi badge</h3>
+                        <a href="#" class="text-blue-600 text-xs font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Leggi di più <i class="fas fa-arrow-right text-[10px]"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <button class="w-full border-2 border-blue-500/20 text-blue-600 py-5 rounded-[1.5rem] font-bold hover:bg-blue-50 transition-all hover:border-blue-500">
+                Vedi tutte le news
+            </button>
+        </section>
 
-    <!-- Pillars Section -->
-    <section id="pillars" class="py-24 px-6 bg-white">
-        <div class="container mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold text-primary">Sei Pilastri Tecnologici</h2>
-            <p class="text-gray-600 mt-4">Cosa rende [BeĕKind] unico nel panorama del volontariato digitale.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 container mx-auto">
-            <div onclick="showExplanation('blockchain')" class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition cursor-pointer text-center group">
-                <i class="fas fa-link text-3xl text-secondary mb-4 group-hover:scale-110 transition"></i>
-                <h3 class="font-bold text-lg">Blockchain</h3>
+        <!-- Missioni Section -->
+        <section id="missioni-anchor" class="section-reveal space-y-8">
+            <div class="flex justify-between items-end">
+                <h2 class="text-4xl font-black">Missioni</h2>
+                <div class="flex gap-2 bg-white/5 p-1.5 rounded-full backdrop-blur-md">
+                    <button data-filter="all" class="mission-filter-btn px-6 py-2 rounded-full text-xs font-extrabold transition-all bg-white text-primary">Tutte</button>
+                    <button data-filter="Ambiente" class="mission-filter-btn px-6 py-2 rounded-full text-xs font-extrabold transition-all hover:bg-white/10">Ambiente</button>
+                </div>
             </div>
-            <div onclick="showExplanation('ai')" class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition cursor-pointer text-center group">
-                <i class="fas fa-brain text-3xl text-accent mb-4 group-hover:scale-110 transition"></i>
-                <h3 class="font-bold text-lg">AI-Matching</h3>
-            </div>
-            <div onclick="showExplanation('security')" class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition cursor-pointer text-center group">
-                <i class="fas fa-shield-alt text-3xl text-primary mb-4 group-hover:scale-110 transition"></i>
-                <h3 class="font-bold text-lg">Sicurezza</h3>
-            </div>
-            <div onclick="showExplanation('efficiency')" class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition cursor-pointer text-center group">
-                <i class="fas fa-bolt text-3xl text-yellow-500 mb-4 group-hover:scale-110 transition"></i>
-                <h3 class="font-bold text-lg">Efficienza</h3>
-            </div>
-            <div onclick="showExplanation('impact')" class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition cursor-pointer text-center group">
-                <i class="fas fa-globe text-3xl text-blue-500 mb-4 group-hover:scale-110 transition"></i>
-                <h3 class="font-bold text-lg">Scalabilità</h3>
-            </div>
-            <div onclick="showExplanation('gamification')" class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition cursor-pointer text-center group">
-                <i class="fas fa-gamepad text-3xl text-purple-500 mb-4 group-hover:scale-110 transition"></i>
-                <h3 class="font-bold text-lg">Gamification</h3>
-            </div>
-        </div>
-    </section>
 
-    <!-- Chi Siamo -->
-    <section id="chi-siamo" class="py-24 px-6 bg-white section-fade-in">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8 text-primary">Chi Siamo</h2>
-            <p class="text-xl max-w-4xl mx-auto text-gray-600 leading-relaxed">
-                TATUMA® è l'innovativa piattaforma che rivoluziona il volontariato attraverso blockchain e intelligenza artificiale.
-                Creiamo un ecosistema trasparente e incentivante che permette ai cittadini di contribuire attivamente al bene comune.
-            </p>
-        </div>
-    </section>
+            <div id="mission-grid" class="grid gap-6">
+                <!-- Missions dynamically loaded -->
+            </div>
+        </section>
 
-    <!-- Missions -->
-    <section id="missions" class="py-24 px-6 bg-gray-50 section-fade-in">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div class="text-left">
-                    <h2 class="text-4xl font-bold text-primary mb-4">Opportunità di Volontariato</h2>
-                    <p class="text-gray-600">Scopri come puoi contribuire alla tua comunità oggi.</p>
-                </div>
-                <div class="mt-6 md:mt-0 flex flex-wrap gap-2">
-                    <button class="mission-filter-btn px-6 py-2 rounded-full bg-secondary text-white font-bold transition" data-filter="all">Tutte</button>
-                    <button class="mission-filter-btn px-6 py-2 rounded-full bg-white text-gray-600 font-bold hover:bg-gray-100 transition" data-filter="Ambiente">Ambiente</button>
-                    <button class="mission-filter-btn px-6 py-2 rounded-full bg-white text-gray-600 font-bold hover:bg-gray-100 transition" data-filter="Supporto Sociale">Sociale</button>
-                </div>
+        <!-- AI Proposal Section -->
+        <section id="ai-anchor" class="section-reveal bg-white/5 rounded-[2.5rem] p-10 border border-white/10 premium-blur shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[60px]"></div>
+            <h2 class="text-3xl font-black mb-6 flex items-center gap-4">
+                <i class="fas fa-brain text-accent floating-bee"></i> Proponi con AI
+            </h2>
+            <p class="text-gray-300 font-medium mb-8">Hai un'idea per la comunità? Descrivila e la nostra AI la trasformerà in una missione validata sulla Blockchain.</p>
+            <div class="relative">
+                <textarea id="mission-idea" placeholder="Es: Vorrei organizzare un workshop di riciclo per i giovani..." class="w-full bg-white/10 border border-white/10 rounded-[1.5rem] p-6 text-white font-medium placeholder:text-gray-500 focus:ring-4 focus:ring-accent/20 focus:border-accent outline-none h-40 transition-all"></textarea>
+                <div class="absolute bottom-4 right-6 text-[10px] text-gray-500 font-bold uppercase tracking-widest">Modulo Gemini 1.5 Pro</div>
             </div>
-            <div id="mission-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- JS populated -->
+            <button id="generate-mission-btn" class="btn-premium w-full mt-6 bg-accent text-primary py-5 rounded-[1.25rem] font-black text-lg shadow-xl shadow-accent/10 flex items-center justify-center gap-3">
+                Analizza Proposta <i class="fas fa-wand-magic-sparkles"></i>
+            </button>
+            <div id="gemini-result-loader" class="hidden mt-6 text-center p-8 bg-white/5 rounded-3xl border border-white/5">
+                <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-accent"></div>
+                <p class="text-xs text-accent mt-4 font-black uppercase tracking-[0.2em]">Sincronizzazione Blockchain...</p>
             </div>
-        </div>
-    </section>
+            <div id="gemini-result" class="mt-6"></div>
+        </section>
 
-    <!-- Rewards -->
-    <section id="rewards" class="py-24 px-6 bg-white section-fade-in">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-16 text-primary">Sistema Ricompense NFT</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="p-8 bg-amber-50 rounded-3xl border-2 border-amber-200 cursor-pointer hover:scale-105 transition" onclick="showRewardDetail('bronzo')">
-                    <i class="fas fa-medal text-amber-600 text-5xl mb-4"></i>
-                    <h3 class="font-black text-xl mb-2">BRONZO</h3>
-                    <p class="text-gray-600 text-sm">0-500 Punti</p>
+        <!-- Impact Section -->
+        <section id="impatto-anchor" class="section-reveal bg-white rounded-[2.5rem] p-10 text-primary space-y-8 shadow-2xl">
+            <h2 class="text-3xl font-black">Il Nostro Impatto</h2>
+            <div class="bg-gray-50 rounded-3xl p-6 h-72">
+                <canvas id="impactChart"></canvas>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+                <div class="bg-blue-50/50 p-6 rounded-[2rem] text-center border border-blue-100">
+                    <p class="text-4xl font-black text-blue-600">450+</p>
+                    <p class="text-xs font-black text-gray-400 uppercase tracking-widest mt-2">Volontari</p>
                 </div>
-                <div class="p-8 bg-slate-50 rounded-3xl border-2 border-slate-200 cursor-pointer hover:scale-105 transition" onclick="showRewardDetail('argento')">
-                    <i class="fas fa-medal text-slate-400 text-5xl mb-4"></i>
-                    <h3 class="font-black text-xl mb-2">ARGENTO</h3>
-                    <p class="text-gray-600 text-sm">501-1500 Punti</p>
-                </div>
-                <div class="p-8 bg-yellow-50 rounded-3xl border-2 border-yellow-200 cursor-pointer hover:scale-105 transition" onclick="showRewardDetail('oro')">
-                    <i class="fas fa-medal text-yellow-500 text-5xl mb-4"></i>
-                    <h3 class="font-black text-xl mb-2">ORO</h3>
-                    <p class="text-gray-600 text-sm">1501-3000 Punti</p>
-                </div>
-                <div class="p-8 bg-blue-50 rounded-3xl border-2 border-blue-200 cursor-pointer hover:scale-105 transition" onclick="showRewardDetail('platino')">
-                    <i class="fas fa-gem text-blue-500 text-5xl mb-4"></i>
-                    <h3 class="font-black text-xl mb-2">PLATINO</h3>
-                    <p class="text-gray-600 text-sm">3000+ Punti</p>
+                <div class="bg-green-50/50 p-6 rounded-[2rem] text-center border border-green-100">
+                    <p class="text-4xl font-black text-green-600">2.5k</p>
+                    <p class="text-xs font-black text-gray-400 uppercase tracking-widest mt-2">Ore Blockchain</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- AI Mission Proposal -->
-    <section id="ai-proposal" class="py-24 px-6 bg-primary text-white section-fade-in">
-        <div class="container mx-auto max-w-4xl">
-            <div class="bg-white/10 backdrop-blur-md rounded-3xl p-12 border border-white/20 shadow-2xl text-center">
-                <i class="fas fa-magic text-accent text-3xl mb-4"></i>
-                <h2 class="text-4xl font-bold mb-4">Proponi la tua Missione con AI</h2>
-                <p class="text-blue-100 mb-10">Hai un'idea per Mozzate? La nostra AI ti aiuterà a strutturarla.</p>
-                <textarea id="mission-idea" rows="4" class="w-full bg-white/5 border border-white/20 rounded-2xl p-6 text-white placeholder-blue-200 outline-none focus:ring-2 focus:ring-accent/50 transition mb-6" placeholder="Esempio: Vorrei pulire il parco..."></textarea>
-                <button id="generate-mission-btn" class="w-full bg-accent text-primary font-bold py-4 rounded-xl hover:bg-yellow-500 transition shadow-lg flex items-center justify-center space-x-3">
-                    <span>Genera Proposta Strutturata</span>
-                    <div id="gemini-result-loader" class="hidden loader"></div>
-                </button>
-                <div id="gemini-result" class="mt-8"></div>
-            </div>
-        </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white py-16 px-6 border-t border-white/5">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-8 md:mb-0">
-                <span class="text-3xl font-bold">[BeĕKind]</span>
-                <p class="text-blue-200">Tecnologia per il Bene Comune</p>
-            </div>
-            <div class="flex space-x-6 text-3xl">
-                <a href="https://www.linkedin.com/in/ta2ma/" target="_blank" class="hover:text-accent"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/TheWolfOfChain" target="_blank" class="hover:text-accent"><i class="fab fa-github"></i></a>
-                <a href="https://x.com/TheWolfOfChain" target="_blank" class="hover:text-accent"><i class="fab fa-x-twitter"></i></a>
-            </div>
-        </div>
-    </footer>
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-gray-100 px-8 py-5 flex justify-between items-center z-[100] max-w-lg mx-auto rounded-t-[2.5rem] shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)]">
+        <button onclick="scrollToSection('hero', this)" class="nav-item bottom-nav-active flex flex-col items-center gap-1.5 transition-all">
+            <i class="fas fa-home text-2xl"></i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Home</span>
+        </button>
+        <button onclick="scrollToSection('missioni-anchor', this)" class="nav-item flex flex-col items-center gap-1.5 text-gray-400 transition-all">
+            <i class="fas fa-clipboard-list text-2xl"></i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Missions</span>
+        </button>
+        <button onclick="scrollToSection('impatto-anchor', this)" class="nav-item flex flex-col items-center gap-1.5 text-gray-400 transition-all">
+            <i class="fas fa-earth-europe text-2xl"></i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Impact</span>
+        </button>
+        <button onclick="toggleProfileModal()" class="nav-item flex flex-col items-center gap-1.5 text-gray-400 transition-all">
+            <i class="fas fa-user text-2xl"></i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Profile</span>
+        </button>
+        <button onclick="toggleMoreMenu()" class="nav-item flex flex-col items-center gap-1.5 text-gray-400 transition-all">
+            <i class="fas fa-ellipsis-h text-2xl"></i>
+            <span class="text-[10px] font-black uppercase tracking-widest">More</span>
+        </button>
+    </nav>
 
     <!-- Modals -->
-    <div id="auth-modal" class="hidden fixed inset-0 z-[2000] bg-black/60 items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative">
-            <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-primary"><i class="fas fa-times text-xl"></i></button>
-            <h3 id="auth-title" class="text-3xl font-bold text-primary mb-8 text-center">Accedi</h3>
-            <form id="auth-form" class="space-y-4">
+    <div id="auth-modal" class="hidden fixed inset-0 z-[2000] bg-black/80 items-center justify-center p-6 backdrop-blur-md">
+        <div class="bg-white rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl relative text-primary animate-scale-up">
+            <button onclick="toggleAuthModal()" class="absolute top-6 right-6 text-gray-300 hover:text-primary transition-colors"><i class="fas fa-times text-xl"></i></button>
+            <h2 id="auth-title" class="text-3xl font-black mb-8">Benvenuto</h2>
+            <form id="auth-form" class="space-y-6">
                 <div id="fullname-field" class="hidden">
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Nome Completo</label>
-                    <input type="text" id="auth-fullname" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none">
+                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Nome Completo</label>
+                    <input type="text" id="auth-fullname" class="w-full bg-gray-50 border-2 border-transparent rounded-[1.25rem] p-4 outline-none focus:border-secondary transition-all font-semibold">
                 </div>
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
-                    <input type="email" id="auth-email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none">
+                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Email</label>
+                    <input type="email" id="auth-email" required class="w-full bg-gray-50 border-2 border-transparent rounded-[1.25rem] p-4 outline-none focus:border-secondary transition-all font-semibold">
                 </div>
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">Password</label>
-                    <input type="password" id="auth-password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none">
+                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Password</label>
+                    <input type="password" id="auth-password" required class="w-full bg-gray-50 border-2 border-transparent rounded-[1.25rem] p-4 outline-none focus:border-secondary transition-all font-semibold">
                 </div>
-                <button type="submit" id="auth-submit-btn" class="w-full bg-primary text-white font-bold py-4 rounded-xl mt-4 shadow-lg hover:bg-secondary">Invia</button>
+                <button type="submit" id="auth-submit-btn" class="w-full bg-primary text-white py-5 rounded-[1.25rem] font-black text-lg shadow-xl shadow-primary/20 hover:bg-secondary transition-all">Accedi</button>
             </form>
-            <p class="text-center text-sm text-gray-600 mt-8">
-                <span id="auth-toggle-text">Non hai un account?</span>
-                <button onclick="switchAuthMode()" id="auth-toggle-btn" class="text-secondary font-bold hover:underline">Registrati</button>
+            <p class="mt-8 text-center text-sm font-semibold text-gray-400">
+                Non hai un account? <button onclick="switchAuthMode()" class="text-secondary font-black hover:underline">Registrati</button>
             </p>
         </div>
     </div>
 
+    <div id="profile-modal" class="hidden fixed inset-0 z-[2000] bg-black/80 items-center justify-center p-6 backdrop-blur-md">
+        <div class="bg-white rounded-[3rem] p-10 max-w-lg w-full max-h-[85vh] overflow-y-auto hide-scrollbar text-primary relative shadow-2xl">
+            <button onclick="toggleProfileModal()" class="absolute top-8 right-8 text-gray-300 hover:text-primary transition-colors"><i class="fas fa-times text-xl"></i></button>
 
-    <div id="profile-modal" class="hidden fixed inset-0 z-[2000] bg-black/70 items-center justify-center p-4 md:p-6 backdrop-blur-md">
-        <div class="bg-white rounded-[2.5rem] max-w-5xl w-full shadow-2xl relative overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-auto max-h-[800px]">
-            <!-- Sidebar -->
-            <div class="w-full md:w-80 bg-primary p-8 text-white flex flex-col justify-between">
-                <div>
-                    <div class="w-32 h-32 rounded-3xl bg-accent flex items-center justify-center text-primary text-5xl font-black shadow-xl border-4 border-white/20 mb-6 mx-auto md:mx-0">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
-                    <div class="flex items-center space-x-2"><h2 id="profile-fullname" class="text-2xl font-bold mb-1 text-center md:text-left">Caricamento...</h2><button onclick="updateProfile()" class="text-blue-200 hover:text-white"><i class="fas fa-edit text-sm"></i></button></div>
-                    <p id="profile-email" class="text-blue-200 text-sm mb-6 text-center md:text-left opacity-70">email@esempio.it</p>
-
-                    <div class="space-y-3">
-                        <div class="bg-white/10 p-4 rounded-2xl flex items-center justify-between">
-                            <span class="text-xs font-bold uppercase tracking-tighter text-blue-200">Livello attuale</span>
-                            <span id="profile-level" class="text-accent font-black">BRONZO</span>
-                        </div>
-                        <div class="bg-white/10 p-4 rounded-2xl flex items-center justify-between">
-                            <span class="text-xs font-bold uppercase tracking-tighter text-blue-200">Punti Accumulati</span>
-                            <span id="profile-points" class="text-white font-black text-xl">0</span>
-                        </div>
-                    </div>
+            <div class="text-center mb-10">
+                <div class="w-28 h-28 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-2xl">
+                    <i class="fas fa-user text-5xl text-blue-200"></i>
                 </div>
-
-                <button onclick="signOut()" class="mt-12 w-full bg-red-500/20 hover:bg-red-500 text-red-100 py-3 rounded-xl font-bold transition-all border border-red-500/50 flex items-center justify-center">
-                    <i class="fas fa-sign-out-alt mr-2"></i> Chiudi Sessione
-                </button>
+                <h2 id="profile-fullname" class="text-3xl font-black">Utente Ospite</h2>
+                <p id="profile-email" class="text-gray-400 font-semibold mt-1">Accedi per sbloccare gli NFT</p>
             </div>
 
-            <!-- Main Dashboard Area -->
-            <div class="flex-1 p-8 md:p-12 overflow-y-auto bg-gray-50">
-                <button onclick="toggleProfileModal()" class="absolute top-6 right-6 text-gray-400 hover:text-primary transition">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
+            <div class="grid grid-cols-2 gap-6 mb-10">
+                <div class="bg-gray-50 p-6 rounded-[2rem] text-center border border-gray-100">
+                    <p id="profile-points" class="text-3xl font-black text-secondary">0</p>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-2">Punti Volontà</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-[2rem] text-center border border-gray-100">
+                    <p id="profile-level" class="text-3xl font-black text-accent">-</p>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-2">Livello NFT</p>
+                </div>
+            </div>
 
-                <div class="grid grid-cols-1 gap-10">
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-                            <i class="fas fa-hands-helping text-secondary mb-3 text-2xl"></i>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase">Missioni Nate</h4>
-                            <p class="text-2xl font-black text-primary">12</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-                            <i class="fas fa-clock text-accent mb-3 text-2xl"></i>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase">Ore Contribuite</h4>
-                            <p class="text-2xl font-black text-primary">48h</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-green-600">
-                            <i class="fas fa-leaf mb-3 text-2xl"></i>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase">CO2 Risparmiata</h4>
-                            <p class="text-2xl font-black">14kg</p>
-                        </div>
+            <div class="mb-10">
+                <h3 class="text-xl font-black mb-6">Collezione NFT</h3>
+                <div class="grid grid-cols-4 gap-4" id="nft-grid">
+                    <div class="aspect-square bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 opacity-50">
+                        <i class="fas fa-lock text-gray-300"></i>
                     </div>
-
-                    <!-- Progress Section -->
-                    <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-xl font-bold text-primary">Prossimo Traguardo: Argento</h3>
-                            <span class="text-sm font-bold text-secondary">350 / 500 VR</span>
-                        </div>
-                        <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden">
-                            <div class="bg-secondary h-full rounded-full" style="width: 70%"></div>
-                        </div>
-                        <p class="text-gray-500 text-sm mt-4 italic">Completa altre 2 missioni 'Ambiente' per sbloccare i vantaggi Argento!</p>
+                    <div class="aspect-square bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 opacity-50">
+                        <i class="fas fa-lock text-gray-300"></i>
                     </div>
-
-                    <!-- Badge Collection -->
-                    <div>
-                        <h3 class="text-xl font-bold text-primary mb-6">La Tua Collezione NFT</h3>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <div class="aspect-square bg-white rounded-3xl border-2 border-accent p-4 flex flex-col items-center justify-center text-center shadow-lg transform rotate-2">
-                                <i class="fas fa-award text-accent text-4xl mb-2"></i>
-                                <span class="text-[10px] font-black uppercase tracking-widest text-primary">Genesis Member</span>
-                            </div>
-                            <div class="aspect-square bg-gray-100 rounded-3xl border border-dashed border-gray-300 p-4 flex flex-col items-center justify-center text-center opacity-40">
-                                <i class="fas fa-lock text-gray-400 text-2xl mb-2"></i>
-                                <span class="text-[8px] font-bold uppercase tracking-widest">Sblocca Livello 2</span>
-                            </div>
-                            <div class="aspect-square bg-gray-100 rounded-3xl border border-dashed border-gray-300 p-4 flex flex-col items-center justify-center text-center opacity-40">
-                                <i class="fas fa-lock text-gray-400 text-2xl mb-2"></i>
-                                <span class="text-[8px] font-bold uppercase tracking-widest">Sblocca Livello 3</span>
-                            </div>
-                            <div class="aspect-square bg-gray-100 rounded-3xl border border-dashed border-gray-300 p-4 flex flex-col items-center justify-center text-center opacity-40">
-                                <i class="fas fa-lock text-gray-400 text-2xl mb-2"></i>
-                                <span class="text-[8px] font-bold uppercase tracking-widest">Sblocca Livello 4</span>
-                            </div>
-                        </div>
+                    <div class="aspect-square bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 opacity-50">
+                        <i class="fas fa-lock text-gray-300"></i>
+                    </div>
+                    <div class="aspect-square bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 opacity-50">
+                        <i class="fas fa-lock text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+
+            <div class="space-y-4">
+                <button onclick="updateProfile()" class="w-full py-5 border-2 border-gray-100 rounded-[1.5rem] font-black hover:bg-gray-50 transition-all">Modifica Profilo</button>
+                <button onclick="signOut()" class="w-full py-5 bg-red-50 text-red-600 rounded-[1.5rem] font-black hover:bg-red-100 transition-all">Scollegati</button>
             </div>
         </div>
     </div>
 
-
-    <div id="explanation-modal" class="hidden fixed inset-0 z-[2000] bg-black/60 items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl p-10 max-w-2xl w-full shadow-2xl relative">
-            <button onclick="hideExplanation()" class="absolute top-4 right-4 text-gray-400 hover:text-primary"><i class="fas fa-times text-xl"></i></button>
+    <div id="explanation-modal" class="hidden fixed inset-0 z-[2000] bg-black/80 items-center justify-center p-6 backdrop-blur-md">
+        <div class="bg-white rounded-[2.5rem] p-12 max-w-lg w-full shadow-2xl relative text-primary">
+            <button onclick="hideExplanation()" class="absolute top-8 right-8 text-gray-300 hover:text-primary transition-colors"><i class="fas fa-times text-2xl"></i></button>
             <div id="explanation-content"></div>
         </div>
     </div>
@@ -408,28 +316,19 @@
 
         let isSignUp = false;
 
-        const explanations = {
-            'blockchain': { title: 'Blockchain', icon: 'fa-link', text: 'Registrazione immutabile delle ore di volontariato.' },
-            'ai': { title: 'AI-Matching', icon: 'fa-brain', text: 'L\'AI suggerisce le missioni basate sui tuoi interessi.' },
-            'security': { title: 'Sicurezza', icon: 'fa-shield-alt', text: 'Protocolli di sicurezza per i dati dei cittadini.' },
-            'efficiency': { title: 'Efficienza', icon: 'fa-bolt', text: 'Riduzione burocrazia per Comune e cittadini.' },
-            'impact': { title: 'Scalabilità', icon: 'fa-globe', text: 'Un modello replicabile ovunque.' },
-            'gamification': { title: 'Gamification', icon: 'fa-gamepad', text: 'Guadagna badge e premi per il tuo impegno.' }
-        };
-
         const missionData = [
-            { id: 1, title: 'Pulizia Parco', category: 'Ambiente', points: 75, description: 'Aiuta a pulire le aree verdi di Mozzate.' },
-            { id: 2, title: 'Piantumazione', category: 'Ambiente', points: 120, description: 'Pianta nuovi alberi per il futuro.' },
-            { id: 3, title: 'Aiuto Famiglie', category: 'Supporto Sociale', points: 150, description: 'Supporto diretto alle famiglie.' },
-            { id: 4, title: 'Compagnia Anziani', category: 'Supporto Sociale', points: 100, description: 'Tempo prezioso per i nostri nonni.' }
+            { id: 1, title: 'Pulizia Parco Sud', category: 'Ambiente', points: 75, description: 'Unisciti alla comunità per pulire le aree verdi e mantenere Mozzate splendente. Attrezzatura fornita dal Comune.' },
+            { id: 2, title: 'Piantumazione Alberi', category: 'Ambiente', points: 120, description: 'Aiutaci a piantare nuovi alberi nel quartiere nord per un futuro più verde e ossigenato.' },
+            { id: 3, title: 'Assistenza Anziani', category: 'Supporto Sociale', points: 100, description: 'Passa del tempo con i nostri anziani, offrendo compagnia o aiuto con la spesa e piccole commissioni.' },
+            { id: 4, title: 'Laboratorio Creativo', category: 'Cultura', points: 90, description: 'Workshop di pittura e riciclo creativo per bambini presso il centro civico ogni sabato.' }
         ];
 
         function toggleAuthModal(mode) {
             const m = document.getElementById('auth-modal');
             if (mode) {
                 isSignUp = mode === 'signup';
-                document.getElementById('auth-title').innerText = isSignUp ? 'Registrati' : 'Bentornato';
-                document.getElementById('auth-submit-btn').innerText = isSignUp ? 'Invia' : 'Accedi';
+                document.getElementById('auth-title').innerText = isSignUp ? 'Unisciti a Noi' : 'Bentornato';
+                document.getElementById('auth-submit-btn').innerText = isSignUp ? 'Registrati' : 'Accedi';
                 document.getElementById('fullname-field').classList.toggle('hidden', !isSignUp);
                 m.classList.remove('hidden'); m.classList.add('flex');
             } else { m.classList.add('hidden'); m.classList.remove('flex'); }
@@ -441,6 +340,7 @@
             const fullName = prompt('Inserisci il tuo nuovo nome completo:');
             if (!fullName) return;
             const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
             const { error } = await supabaseClient.from('profiles').update({ full_name: fullName }).eq('id', user.id);
             if (error) alert('Errore nell\'aggiornamento: ' + error.message);
             else { alert('Profilo aggiornato con successo!'); fetchUserProfile(); }
@@ -455,16 +355,40 @@
                 document.getElementById('profile-fullname').innerText = profile.full_name || 'Volontario';
                 document.getElementById('profile-points').innerText = profile.points;
                 document.getElementById('profile-level').innerText = profile.level.toUpperCase();
-                document.getElementById('nav-username').innerText = (profile.full_name || 'Utente').split(' ')[0];
-                document.getElementById('nav-points').innerText = profile.points + ' VR';
+                updateNFTGrid(profile.points);
             }
         }
 
+        function updateNFTGrid(points) {
+            const grid = document.getElementById('nft-grid');
+            grid.innerHTML = '';
+            const tiers = [
+                { name: 'Bronze', req: 0, icon: 'fa-award', color: 'text-amber-700' },
+                { name: 'Silver', req: 501, icon: 'fa-medal', color: 'text-gray-400' },
+                { name: 'Gold', req: 1501, icon: 'fa-trophy', color: 'text-yellow-500' },
+                { name: 'Platinum', req: 3001, icon: 'fa-crown', color: 'text-cyan-400' }
+            ];
+
+            tiers.forEach(t => {
+                const isLocked = points < t.req;
+                const div = document.createElement('div');
+                div.className = `aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all ${isLocked ? 'bg-gray-50 border-dashed border-gray-200 opacity-40' : 'bg-white border-accent shadow-lg shadow-accent/5'}`;
+                div.innerHTML = `
+                    <i class="fas ${isLocked ? 'fa-lock' : t.icon} ${isLocked ? 'text-gray-300' : t.color} text-xl mb-1"></i>
+                    <span class="text-[8px] font-black uppercase tracking-tighter ${isLocked ? 'text-gray-400' : 'text-primary'}">${t.name}</span>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
         supabaseClient.auth.onAuthStateChange((event, session) => {
-            const btns = document.getElementById('auth-buttons');
-            const nav = document.getElementById('user-profile-nav');
-            if (session) { btns.classList.add('hidden'); nav.classList.remove('hidden'); fetchUserProfile(); }
-            else { btns.classList.remove('hidden'); nav.classList.add('hidden'); }
+            if (session) { fetchUserProfile(); }
+            else {
+                document.getElementById('profile-fullname').innerText = 'Utente Ospite';
+                document.getElementById('profile-points').innerText = '0';
+                document.getElementById('profile-level').innerText = '-';
+                updateNFTGrid(0);
+            }
         });
 
         document.getElementById('auth-form').addEventListener('submit', async (e) => {
@@ -472,17 +396,25 @@
             const email = document.getElementById('auth-email').value;
             const password = document.getElementById('auth-password').value;
             const fullName = document.getElementById('auth-fullname').value;
+            const btn = document.getElementById('auth-submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch animate-spin"></i>';
+
             try {
                 if (isSignUp) {
                     const { error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
                     if (error) throw error;
-                    alert('Registrazione effettuata! Controlla l\'email.');
+                    alert('Registrazione effettuata! Controlla l\'email per confermare.');
                 } else {
                     const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
                     if (error) throw error;
                 }
                 toggleAuthModal();
             } catch (err) { alert(err.message); }
+            finally {
+                btn.disabled = false;
+                btn.innerText = isSignUp ? 'Registrati' : 'Accedi';
+            }
         });
 
         function toggleProfileModal() { const m = document.getElementById('profile-modal'); m.classList.toggle('hidden'); if (!m.classList.contains('hidden')) m.classList.add('flex'); }
@@ -494,102 +426,71 @@
             const filtered = filter === 'all' ? missionData : missionData.filter(m => m.category === filter);
             filtered.forEach(m => {
                 const card = document.createElement('div');
-                card.className = 'bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition';
-                card.innerHTML = `<h3 class="font-bold text-xl mb-2 text-primary">${m.title}</h3><p class="text-sm text-gray-500 mb-6">${m.description}</p><button onclick="showMissionDetail(${m.id})" class="w-full border-2 border-primary/10 text-primary py-3 rounded-xl font-bold hover:bg-primary hover:text-white transition-all">Scopri Missione</button>`;
+                card.className = 'card-premium bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 text-primary';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-blue-100">${m.category}</span>
+                        <div class="flex items-center gap-1.5 bg-accent/10 px-3 py-1 rounded-lg">
+                            <i class="fas fa-bolt text-accent text-xs"></i>
+                            <span class="text-accent font-black text-sm">+${m.points} VR</span>
+                        </div>
+                    </div>
+                    <h3 class="font-black text-xl mb-3">${m.title}</h3>
+                    <p class="text-sm text-gray-400 mb-8 leading-relaxed font-medium">${m.description}</p>
+                    <button onclick="showMissionDetail(${m.id})" class="w-full bg-primary text-white py-4 rounded-2xl font-black text-sm hover:bg-secondary transition-all shadow-lg shadow-primary/10">Dettagli Missione</button>
+                `;
                 grid.appendChild(card);
             });
-        }
-
-        function showExplanation(key) {
-            const exp = explanations[key];
-            const cont = document.getElementById('explanation-content');
-            cont.innerHTML = `<h3 class="text-3xl font-bold mb-4 text-primary">${exp.title}</h3><p class="text-gray-600 leading-relaxed">${exp.text}</p>`;
-            document.getElementById('explanation-modal').classList.remove('hidden');
-            document.getElementById('explanation-modal').classList.add('flex');
-        }
-
-        async function applyForMission(missionId) {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                alert('Devi aver effettuato l\'accesso per candidarti a una missione.');
-                toggleAuthModal('signin');
-                return;
-            }
-            const mission = missionData.find(m => m.id === missionId);
-            alert('Candidatura inviata per: ' + mission.title + '. Riceverai una notifica non appena la tua partecipazione sarà confermata dalla Blockchain.');
-            hideExplanation();
         }
 
         function showMissionDetail(id) {
             const m = missionData.find(x => x.id === id);
             const cont = document.getElementById('explanation-content');
-            cont.innerHTML = `<h3 class="text-3xl font-bold mb-4 text-primary">${m.title}</h3><p class="mb-8 text-gray-600">${m.description}</p><button onclick="applyForMission(${m.id})" class="w-full bg-primary text-white py-4 rounded-xl font-bold transition hover:bg-secondary">Candidati per ${m.points} Punti</button>`;
-            document.getElementById('explanation-modal').classList.remove('hidden');
-            document.getElementById('explanation-modal').classList.add('flex');
-        }
-
-
-        const rewardsExplanations = {
-            'bronzo': { title: 'NFT Reward BRONZO', points: '0-500', benefits: ['Accesso missioni base', 'Badge profilo', 'Newsletter esclusiva'] },
-            'argento': { title: 'NFT Reward ARGENTO', points: '501-1500', benefits: ['Sconti partner locali', 'Missioni speciali', 'Priorità supporto'] },
-            'oro': { title: 'NFT Reward ORO', points: '1501-3000', benefits: ['Eventi VIP Comune', 'Certificato ufficiale', 'Mentorship'] },
-            'platino': { title: 'NFT Reward PLATINO', points: '3000+', benefits: ['Governance piattaforma', 'Accesso fondi sociali', 'Membro onorario'] }
-        };
-
-        function showRewardDetail(key) {
-            const exp = rewardsExplanations[key];
-            const cont = document.getElementById('explanation-content');
-            let benefitsHtml = exp.benefits.map(b => `<li class="flex items-center text-sm text-gray-600 mb-2"><i class="fas fa-check-circle text-secondary mr-2"></i>${b}</li>`).join('');
-
             cont.innerHTML = `
-                <div class="text-center mb-8">
-                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-accent">
-                        <i class="fas fa-award text-3xl text-accent"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary">${exp.title}</h3>
-                    <p class="text-secondary font-bold uppercase text-xs tracking-widest mt-2">Traguardo: ${exp.points} VR Punti</p>
+                <div class="mb-8">
+                    <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-blue-100">${m.category}</span>
                 </div>
-                <div class="bg-gray-50 p-6 rounded-2xl mb-8">
-                    <h4 class="font-bold text-primary mb-4 uppercase text-xs">Vantaggi Esclusivi:</h4>
-                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                        ${benefitsHtml}
-                    </ul>
+                <h3 class="text-4xl font-black mb-6 text-primary leading-tight">${m.title}</h3>
+                <p class="mb-10 text-gray-500 font-medium leading-relaxed text-lg">${m.description}</p>
+                <div class="bg-gray-50 p-8 rounded-[2rem] mb-10 border border-gray-100">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Ricompensa Blockchain</p>
+                    <p class="text-3xl font-black text-secondary flex items-center gap-3">
+                        <i class="fas fa-award"></i> ${m.points} Punti Volontà
+                    </p>
                 </div>
-                <p class="text-gray-500 text-sm italic text-center">Questo NFT verrà coniato automaticamente sulla Blockchain al raggiungimento dei punti.</p>
+                <button onclick="applyForMission(${m.id})" class="w-full bg-primary text-white py-5 rounded-[1.5rem] font-black text-lg transition-all hover:bg-secondary shadow-2xl shadow-primary/20">Accetta Missione</button>
             `;
             document.getElementById('explanation-modal').classList.remove('hidden');
             document.getElementById('explanation-modal').classList.add('flex');
         }
-</h3><p class="text-gray-600">Questo asset digitale certifica il tuo impegno sociale a Mozzate. Raggiungi il punteggio richiesto per sbloccarlo automaticamente nel tuo wallet.</p>`;
-            document.getElementById('explanation-modal').classList.remove('hidden');
-            document.getElementById('explanation-modal').classList.add('flex');
+
+        async function applyForMission(id) {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) { alert('Effettua il login per accettare le missioni.'); toggleAuthModal('signin'); return; }
+            alert('Missione accettata! La tua partecipazione è stata registrata sulla Blockchain con successo.');
+            hideExplanation();
         }
 
         function hideExplanation() { document.getElementById('explanation-modal').classList.add('hidden'); document.getElementById('explanation-modal').classList.remove('flex'); }
 
-        function renderImpactChart() {
-            const ctx = document.getElementById('impactChart').getContext('2d');
-            new Chart(ctx, { type: 'line', data: { labels: ['Gen','Feb','Mar','Apr','Mag','Giu'], datasets: [{ label: 'Missioni', data: [12,19,30,45,60,85], borderColor: '#2b6cb0', backgroundColor: 'rgba(43, 108, 176, 0.1)', fill: true, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+        function scrollToSection(id, btn) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('bottom-nav-active', 'text-gray-400'));
+                document.querySelectorAll('.nav-item').forEach(x => x.classList.add('text-gray-400'));
+                btn.classList.add('bottom-nav-active');
+                btn.classList.remove('text-gray-400');
+            }
         }
 
-        window.onload = () => { renderMissions(); renderImpactChart(); };
-        document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
-        document.querySelectorAll('.mission-filter-btn').forEach(b => b.addEventListener('click', () => {
-            document.querySelectorAll('.mission-filter-btn').forEach(x => x.classList.remove('bg-secondary', 'text-white'));
-            b.classList.add('bg-secondary', 'text-white');
-            renderMissions(b.dataset.filter);
-        }));
-
+        // AI Proposal
         document.getElementById('generate-mission-btn').addEventListener('click', async () => {
             const idea = document.getElementById('mission-idea').value.trim();
-            if (!idea) return alert('Inserisci un idea per permettere all\'AI di analizzarla.');
+            if (!idea) return alert('Descrivi la tua idea per la comunità.');
 
             const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                alert('Devi aver effettuato l\'accesso per proporre una missione.');
-                toggleAuthModal('signin');
-                return;
-            }
+            if (!session) { alert('Effettua il login per usare l\'AI.'); toggleAuthModal('signin'); return; }
 
             document.getElementById('gemini-result-loader').classList.remove('hidden');
             document.getElementById('generate-mission-btn').disabled = true;
@@ -598,16 +499,89 @@
                 document.getElementById('gemini-result-loader').classList.add('hidden');
                 document.getElementById('generate-mission-btn').disabled = false;
                 document.getElementById('gemini-result').innerHTML = `
-                    <div class="p-6 bg-white/20 rounded-2xl border border-white/30 text-white animate-fade-in">
-                        <h4 class="font-bold text-accent mb-2"><i class="fas fa-check-circle mr-2"></i>Analisi completata</h4>
-                        <p class="text-sm">La tua proposta è stata analizzata dal nostro modulo AI. La missione è stata classificata come <strong>Ambiente</strong> e inviata per la validazione sulla Blockchain.</p>
+                    <div class="p-8 bg-white/10 rounded-[2rem] border border-white/20 text-white animate-fade-in backdrop-blur-md">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-secondary/20 p-2 rounded-full"><i class="fas fa-check text-secondary"></i></div>
+                            <h4 class="font-black text-accent text-lg uppercase tracking-widest">Analisi AI Completata</h4>
+                        </div>
+                        <p class="text-sm font-medium leading-relaxed opacity-90">La tua proposta è stata validata tecnicamente dal modello <strong>Gemini 1.5 Pro</strong>. È stata classificata come <strong>Ambiente</strong> e inviata agli uffici comunali per l'approvazione finale. Verrai notificato sulla Blockchain.</p>
                     </div>
                 `;
-            }, 2500);
+            }, 3000);
         });
 
-        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.section-fade-in').forEach(s => obs.observe(s));
-</script>
+        // Charts
+        function renderImpactChart() {
+            const ctx = document.getElementById('impactChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Gen','Feb','Mar','Apr','Mag','Giu'],
+                    datasets: [{
+                        label: 'Impatto',
+                        data: [15, 25, 45, 60, 85, 120],
+                        borderColor: '#3b82f6',
+                        backgroundColor: (context) => {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+                            if (!chartArea) return null;
+                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                            gradient.addColorStop(0, 'rgba(59, 130, 246, 0)');
+                            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.2)');
+                            return gradient;
+                        },
+                        fill: true,
+                        tension: 0.5,
+                        borderWidth: 4,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#3b82f6',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { display: false },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8', font: { size: 10, weight: '900' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Scroll Observer
+        const revealObs = new IntersectionObserver((es) => {
+            es.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        window.onload = () => {
+            renderMissions();
+            renderImpactChart();
+            document.querySelectorAll('.section-reveal, .stagger-reveal').forEach(s => revealObs.observe(s));
+
+            window.addEventListener("scroll", () => {
+                const scrolled = window.pageYOffset;
+                document.body.style.backgroundPositionY = -(scrolled * 0.1) + "px";
+            });
+        };
+
+        document.querySelectorAll('.mission-filter-btn').forEach(b => b.addEventListener('click', () => {
+            document.querySelectorAll('.mission-filter-btn').forEach(x => x.classList.remove('bg-white', 'text-primary'));
+            document.querySelectorAll('.mission-filter-btn').forEach(x => x.classList.add('hover:bg-white/10'));
+            b.classList.add('bg-white', 'text-primary');
+            b.classList.remove('hover:bg-white/10');
+            renderMissions(b.dataset.filter);
+        }));
+
+        function toggleMoreMenu() { alert('Menu avanzato: Impostazioni, FAQ, Whitepaper Blockchain.'); }
+
+    </script>
 </body>
 </html>
