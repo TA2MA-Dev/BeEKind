@@ -25,4 +25,22 @@
     specchio: # opzionale
     # Il token utilizzato come intestazione di autorizzazione durante il recupero dal mirror
     token specchio: # opzionale
-          
+- nome: Cache
+  usi: actions/cache@v5.1.0
+  con:
+    # Un elenco di file, directory e modelli jolly da memorizzare nella cache e ripristinare
+    sentiero:
+    # Una chiave esplicita per ripristinare e salvare la cache
+    chiave:
+    # Una stringa multilinea ordinata che elenca le chiavi corrispondenti al prefisso, utilizzate per ripristinare la cache obsoleta se non si è verificato alcun riscontro nella cache per la chiave. Nota: `cache-hit` restituisce false in questo caso.
+    restore-keys: # opzionale
+    # Dimensione del blocco utilizzato per suddividere i file di grandi dimensioni durante il caricamento, in byte
+    upload-chunk-size: # facoltativo
+    # Un valore booleano opzionale, se abilitato, consente ai runner di Windows di salvare o ripristinare le cache che possono essere ripristinate o salvate rispettivamente su altre piattaforme
+    enableCrossOsArchive: # facoltativo, il valore predefinito è false
+    # Interrompi il flusso di lavoro se la voce nella cache non viene trovata
+    fail-on-cache-miss: # opzionale, il valore predefinito è false
+    # Verifica se esiste una voce nella cache per gli input specificati (chiave, chiavi di ripristino) senza scaricare la cache
+    sola ricerca: # facoltativo, il valore predefinito è falso
+    # Esegui il passaggio successivo per salvare la cache anche se un altro passaggio precedente fallisce
+    salva sempre: # opzionale, il valore predefinito è falso
