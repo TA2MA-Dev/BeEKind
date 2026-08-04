@@ -1,46 +1,59 @@
-- nome: Configura l'ambiente Node.js
-  usi: actions/setup-node@v6.4.0
-  con:
-    # Specifiche della versione da utilizzare. Esempi: 12.x, 10.15.1, >=10.15.0.
-    versione del nodo: # opzionale
-    # File contenente la specifica della versione da utilizzare. Esempi: package.json, .nvmrc, .node-version, .tool-versions.
-    file-versione-node: # facoltativo
-    # Architettura di destinazione che Node deve utilizzare. Esempi: x86, x64. Per impostazione predefinita verrà utilizzata l'architettura di sistema.
-    architettura: # opzionale
-    # Imposta questa opzione se desideri che l'azione verifichi la presenza della versione più recente disponibile che soddisfi le specifiche di versione.
-    verifica-ultime: # facoltativo
-    # Registro opzionale da configurare per l'autenticazione. Imposterà il registro in un file .npmrc e .yarnrc a livello di progetto e configurerà l'autenticazione per leggere da env.NODE_AUTH_TOKEN.
-    registro-url: # facoltativo
-    # Ambito opzionale per l'autenticazione con registri con ambito. In caso di utilizzo del registro GitHub Packages (https://npm.pkg.github.com/), verrà utilizzato il proprietario del repository.
-    ambito: # opzionale
-    # Utilizzato per scaricare le distribuzioni Node da node-versions. Poiché esiste un valore predefinito, in genere non viene fornito dall'utente. Quando si esegue questa azione su github.com, il valore predefinito è sufficiente. Quando si esegue su GHES, è possibile passare un token di accesso personale per github.com se si riscontrano limitazioni di frequenza.
-    token: # opzionale, il valore predefinito è ${{ github.server_url == 'https://github.com' && github.token || '' }}
-    # Utilizzato per specificare un gestore di pacchetti per la memorizzazione nella cache nella directory predefinita. Valori supportati: npm, yarn, pnpm.
-    cache: # opzionale
-    # Impostare su false per disabilitare la memorizzazione automatica nella cache. Per impostazione predefinita, la memorizzazione nella cache è abilitata quando devEngines.packageManager o il campo packageManager di livello superiore in package.json specificano npm come gestore di pacchetti.
-    cache del gestore pacchetti: # opzionale, il valore predefinito è true
-    # Utilizzato per specificare il percorso di un file di dipendenza: package-lock.json, yarn.lock, ecc. Supporta caratteri jolly o un elenco di nomi di file per la memorizzazione nella cache di più dipendenze.
-    cache-dependency-path: # facoltativo
-    # Utilizzato per specificare un mirror alternativo da cui scaricare i binari di Node.js
-    specchio: # opzionale
-    # Il token utilizzato come intestazione di autorizzazione durante il recupero dal mirror
-    token specchio: # opzionale
-- nome: Cache
-  usi: actions/cache@v5.1.0
-  con:
-    # Un elenco di file, directory e modelli jolly da memorizzare nella cache e ripristinare
-    sentiero:
-    # Una chiave esplicita per ripristinare e salvare la cache
-    chiave:
-    # Una stringa multilinea ordinata che elenca le chiavi corrispondenti al prefisso, utilizzate per ripristinare la cache obsoleta se non si è verificato alcun riscontro nella cache per la chiave. Nota: `cache-hit` restituisce false in questo caso.
-    restore-keys: # opzionale
-    # Dimensione del blocco utilizzato per suddividere i file di grandi dimensioni durante il caricamento, in byte
-    upload-chunk-size: # facoltativo
-    # Un valore booleano opzionale, se abilitato, consente ai runner di Windows di salvare o ripristinare le cache che possono essere ripristinate o salvate rispettivamente su altre piattaforme
-    enableCrossOsArchive: # facoltativo, il valore predefinito è false
-    # Interrompi il flusso di lavoro se la voce nella cache non viene trovata
-    fail-on-cache-miss: # opzionale, il valore predefinito è false
-    # Verifica se esiste una voce nella cache per gli input specificati (chiave, chiavi di ripristino) senza scaricare la cache
-    sola ricerca: # facoltativo, il valore predefinito è falso
-    # Esegui il passaggio successivo per salvare la cache anche se un altro passaggio precedente fallisce
-    salva sempre: # opzionale, il valore predefinito è falso
+name: Python Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: '16.x'
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f package.json ]; then npm ci || npm install; fi
+
+      - name: Run tests
+        run: |
+          if [ -f pytest.ini ] || [ -d tests ]; then pytest -q; fi
+
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install build
+          python -m build
+
+      - name: Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: pypa/gh-action-pypi-publish@release-v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
