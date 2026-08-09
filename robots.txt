@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beekind.mozzate.it/sitemap.xml

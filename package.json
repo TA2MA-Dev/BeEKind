@@ -1,0 +1,23 @@
+{
+  "name": "beekind-landing",
+  "version": "1.1.0",
+  "description": "BeEKind: The revolutionary volunteering ecosystem for the Municipality of Mozzate by TATUMA®",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "deploy": "echo 'Deploying to Render...'"
+  },
+  "keywords": [
+    "volunteering",
+    "blockchain",
+    "ai",
+    "nft",
+    "mozzate",
+    "tatuma"
+  ],
+  "author": "TATUMA®",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}
